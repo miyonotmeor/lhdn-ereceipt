@@ -127,6 +127,16 @@ if (
 
 }
 
+window.addEventListener("load", () => {
+    const dashboard = document.querySelector(".dashboard");
+
+    if (dashboard) {
+        setTimeout(() => {
+            dashboard.classList.add("show");
+        }, 150);
+    }
+});
+
 /* ==========================================
    LOGIN SYSTEM
 ========================================== */
