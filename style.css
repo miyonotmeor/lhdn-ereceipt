@@ -803,3 +803,16 @@ body{
     }
 
 }
+
+
+
+.welcome {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.7s ease;
+}
+
+.welcome.show {
+    opacity: 1;
+    transform: translateY(0);
+}
