@@ -15,7 +15,20 @@
 <style>
 body{background:linear-gradient(135deg,#f8f9fc,#eef3ff);}
 .login-page{min-height:calc(100vh - 120px);display:flex;justify-content:center;align-items:center;padding:70px 20px;}
-.login-card{max-width:470px;width:100%;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);padding:42px;border-radius:30px;box-shadow:0 25px 60px rgba(0,0,0,.12);animation:floatCard 5s ease-in-out infinite;}
+  
+.login-card{
+    max-width:470px;
+    width:100%;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(18px);
+    padding:42px;
+    border-radius:30px;
+    box-shadow:0 25px 60px rgba(0,0,0,.12);
+
+    /* No floating animation */
+    animation:fadeUp .8s ease;
+}
+  
 .logo-top{text-align:center;margin-bottom:30px;}
 .logo-top img{width:80px;margin-bottom:15px;}
 .logo-top h2{font-size:40px;color:#1A3D8F;}
