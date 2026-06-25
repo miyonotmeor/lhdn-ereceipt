@@ -149,24 +149,22 @@ if (loginForm) {
 
         const user = users.find(u => u.email === email);
 
-// CASE 1: email not found
-if (!user) {
-    alert("No account found with this email. Please register first.");
-    return;
-}
+        // CASE 1: EMAIL NOT FOUND
+        if (!user) {
+            if (confirm("No account found with this email.\n\nGo to Register page?")) {
+                window.location.href = "register.html";
+            }
+            return;
+        }
 
-// CASE 2: password wrong
-if (user.password !== loginPassword) {
-    alert("Invalid password. Please try again.");
-    return;
-}
+        // CASE 2: PASSWORD WRONG
+        if (user.password !== loginPassword) {
+            alert("Invalid password. Please try again.");
+            return;
+        }
 
-// CASE 3: success
-localStorage.setItem("loggedUser", JSON.stringify(user));
-window.location.href = "dashboard.html";
-
+        // CASE 3: SUCCESS LOGIN
         localStorage.setItem("loggedUser", JSON.stringify(user));
-
         window.location.href = "dashboard.html";
     });
 
