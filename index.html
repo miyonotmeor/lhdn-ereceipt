@@ -330,7 +330,21 @@ const menuToggle = document.getElementById("menuToggle");
 const navbar = document.getElementById("navbar");
 
 menuToggle.addEventListener("click", function () {
+
     navbar.classList.toggle("active");
+    menuToggle.classList.toggle("active");
+
+});
+
+    document.querySelectorAll("#navbar a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        navbar.classList.remove("active");
+        menuToggle.classList.remove("active");
+
+    });
+
 });
 
 </script>
