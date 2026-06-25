@@ -325,57 +325,7 @@
 
 </footer>
 
-<script>
-
-const menuToggle = document.getElementById("menuToggle");
-const navbar = document.getElementById("navbar");
-
-menuToggle.addEventListener("click", function () {
-
-    navbar.classList.toggle("active");
-    menuToggle.classList.toggle("active");
-
-});
-
-// Close menu after clicking a link
-
-document.querySelectorAll("#navbar a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        navbar.classList.remove("active");
-        menuToggle.classList.remove("active");
-
-    });
-
-});
-
-// Scroll Animation
-
-const observer = new IntersectionObserver((entries)=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-            entry.target.classList.add("show");
-
-        }
-
-    });
-
-},{
-    threshold:0.15
-});
-
-document.querySelectorAll("section").forEach(section=>{
-
-    section.classList.add("hidden");
-    observer.observe(section);
-
-});
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
