@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Receipt Result</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .result-container{
+            padding:40px 8%;
+        }
+
+        .box{
+            background:white;
+            padding:25px;
+            border-radius:20px;
+            margin-bottom:20px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .preview-img{
+            width:100%;
+            border-radius:15px;
+        }
+
+        .btn{
+            background:#FFC72C;
+            border:none;
+            padding:14px 25px;
+            border-radius:30px;
+            font-weight:700;
+            cursor:pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>LHDN eReceipt</h2>
+</header>
+
+<div class="result-container">
+
+    <div class="box">
+        <h2>Extracted Data</h2>
+        <p id="amount"></p>
+        <p id="date"></p>
+    </div>
+
+    <div class="box">
+        <h2>Original Receipt</h2>
+        <img id="originalImage" class="preview-img">
+    </div>
+
+    <div class="box">
+        <h2>Official Preview</h2>
+        <div id="officialPreview">
+            <!-- we generate later -->
+        </div>
+    </div>
+
+    <button class="btn" onclick="saveReceipt()">Save Receipt</button>
+
+</div>
+
+<script>
+const data = JSON.parse(localStorage.getItem("lastReceiptData"));
+const image = localStorage.getItem("lastReceiptImage");
+
+document.getElementById("amount").textContent = "Amount: " + data.amount;
+document.getElementById("date").textContent = "Date: " + data.date;
+document.getElementById("originalImage").src = image;
+
+function saveReceipt(){
+
+    let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+
+    receipts.push({
+        amount: data.amount,
+        date: data.date,
+        image: image
+    });
+
+    localStorage.setItem("receipts", JSON.stringify(receipts));
+
+    alert("Saved!");
+
+    window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>
