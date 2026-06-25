@@ -3,27 +3,32 @@
 // ================================
 
 const video = document.getElementById("camera");
-
-navigator.mediaDevices.getUserMedia({
-    video: { facingMode: "environment" }
-})
-.then(stream => {
-    video.srcObject = stream;
-})
-.catch(err => {
-    alert("Camera not supported or permission denied");
-});
-
-// ================================
-// ELEMENTS
-// ================================
-
 const canvas = document.getElementById("canvas");
 const captureBtn = document.getElementById("captureBtn");
 const uploadInput = document.getElementById("uploadInput");
 
+let isProcessing = false;
+
 // ================================
-// CORE RECEIPT ENGINE
+// CAMERA INIT (SAFE VERSION)
+// ================================
+
+async function startCamera() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "environment" }
+        });
+        video.srcObject = stream;
+    } catch (err) {
+        alert("Camera not supported or permission denied");
+        console.error(err);
+    }
+}
+
+startCamera();
+
+// ================================
+// CORE RECEIPT ENGINE (LOCAL)
 // ================================
 
 function createReceipt(image, text) {
@@ -31,18 +36,18 @@ function createReceipt(image, text) {
     const parsed = parseReceipt(text);
 
     return {
-        id: Date.now(),
+        id: "RCPT-" + Date.now(),
         image: image,
         amount: parsed.amount,
         date: parsed.date,
-        rawText: text,
+        rawText: text || "",
         status: "pending",
         createdAt: new Date().toISOString()
     };
 }
 
 // ================================
-// SAVE RECEIPT TO DB
+// SAVE TO LOCAL DB
 // ================================
 
 function saveReceipt(receipt) {
@@ -53,66 +58,8 @@ function saveReceipt(receipt) {
 
     localStorage.setItem("receipts", JSON.stringify(receipts));
 
-    console.log("SAVED RECEIPT:", receipt);
+    console.log("✅ SAVED RECEIPT:", receipt);
 }
-
-// ================================
-// CAPTURE IMAGE (CAMERA)
-// ================================
-
-captureBtn.addEventListener("click", async () => {
-
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-
-    ctx.drawImage(video, 0, 0);
-
-    const image = canvas.toDataURL("image/png");
-
-    alert("Scanning receipt... please wait");
-
-    const text = await extractTextFromImage(image);
-
-    const receipt = createReceipt(image, text);
-
-    saveReceipt(receipt);
-
-    alert("Receipt scanned successfully!");
-
-    window.location.href = "receipt-result.html?id=" + receipt.id;
-});
-
-// ================================
-// UPLOAD IMAGE
-// ================================
-
-uploadInput.addEventListener("change", async (event) => {
-
-    const file = event.target.files[0];
-
-    const reader = new FileReader();
-
-    reader.onload = async function(e) {
-
-        const image = e.target.result;
-
-        alert("Scanning uploaded receipt... please wait");
-
-        const text = await extractTextFromImage(image);
-
-        const receipt = createReceipt(image, text);
-
-        saveReceipt(receipt);
-
-        alert("Receipt scanned successfully!");
-
-        window.location.href = "receipt-result.html?id=" + receipt.id;
-    };
-
-    reader.readAsDataURL(file);
-});
 
 // ================================
 // OCR ENGINE
@@ -122,7 +69,7 @@ async function extractTextFromImage(imageData) {
 
     const result = await Tesseract.recognize(
         imageData,
-        'eng',
+        "eng",
         {
             logger: m => console.log(m)
         }
@@ -135,13 +82,91 @@ async function extractTextFromImage(imageData) {
 // RECEIPT PARSER (IMPROVED)
 // ================================
 
-function parseReceipt(text) {
+function parseReceipt(text = "") {
 
-    let amount = text.match(/RM\s?\d+(\.\d{2})?/i);
-    let date = text.match(/\d{2}[\/\-]\d{2}[\/\-]\d{4}/);
+    const amountMatch = text.match(/RM\s?\d+(\.\d{2})?/i);
+    const dateMatch = text.match(/\d{2}[\/\-]\d{2}[\/\-]\d{4}/);
 
     return {
-        amount: amount ? amount[0] : "RM0.00",
-        date: date ? date[0] : "Unknown"
+        amount: amountMatch ? amountMatch[0] : "RM0.00",
+        date: dateMatch ? dateMatch[0] : "Unknown"
     };
 }
+
+// ================================
+// PROCESS ENGINE (UNIFIED)
+// ================================
+
+async function processReceipt(image) {
+
+    if (isProcessing) return;
+    isProcessing = true;
+
+    try {
+
+        alert("Scanning receipt... please wait");
+
+        const text = await extractTextFromImage(image);
+
+        const receipt = createReceipt(image, text);
+
+        saveReceipt(receipt);
+
+        alert("Receipt scanned successfully!");
+
+        window.location.href = "receipt-result.html?id=" + receipt.id;
+
+    } catch (err) {
+
+        console.error("OCR ERROR:", err);
+        alert("Failed to scan receipt. Try again.");
+
+    } finally {
+        isProcessing = false;
+    }
+}
+
+// ================================
+// CAPTURE FROM CAMERA
+// ================================
+
+captureBtn.addEventListener("click", async () => {
+
+    if (isProcessing) return;
+
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    ctx.drawImage(video, 0, 0);
+
+    const image = canvas.toDataURL("image/png");
+
+    await processReceipt(image);
+});
+
+// ================================
+// UPLOAD IMAGE
+// ================================
+
+uploadInput.addEventListener("change", async (event) => {
+
+    const file = event.target.files[0];
+
+    if (!file) {
+        alert("No file selected");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = async function(e) {
+
+        const image = e.target.result;
+
+        await processReceipt(image);
+    };
+
+    reader.readAsDataURL(file);
+});
