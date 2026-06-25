@@ -100,7 +100,7 @@ if (confirmPassword && toggleConfirmPassword) {
    SCROLL ANIMATION
 ========================================== */
 
-const sections = document.querySelectorAll("section");
+if (!window.location.pathname.includes("login") && !window.location.pathname.includes("register"))
 
 if (sections.length > 0 && !window.location.pathname.includes("login") && !window.location.pathname.includes("register")) {
 
@@ -147,12 +147,23 @@ if (loginForm) {
 
         let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        const user = users.find(u => u.email === email && u.password === loginPassword);
+        const user = users.find(u => u.email === email);
 
-        if (!user) {
-            alert("Invalid email or password");
-            return;
-        }
+// CASE 1: email not found
+if (!user) {
+    alert("No account found with this email. Please register first.");
+    return;
+}
+
+// CASE 2: password wrong
+if (user.password !== loginPassword) {
+    alert("Invalid password. Please try again.");
+    return;
+}
+
+// CASE 3: success
+localStorage.setItem("loggedUser", JSON.stringify(user));
+window.location.href = "dashboard.html";
 
         localStorage.setItem("loggedUser", JSON.stringify(user));
 
