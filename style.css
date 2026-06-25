@@ -300,6 +300,10 @@ footer{
     padding:35px;
 }
 
+.menu-toggle{
+    display:none;
+}
+
 /* ===========================================
    Large Tablet (iPad Landscape)
 =========================================== */
@@ -362,119 +366,99 @@ footer{
 }
 
 /* ===========================================
-   Mobile Landscape & Small Tablet
-=========================================== */
-
-@media (max-width:768px){
-
-    header{
-        flex-direction:column;
-        gap:20px;
-    }
-
-    nav{
-        flex-wrap:wrap;
-        justify-content:center;
-        gap:18px;
-    }
-
-    .hero{
-        flex-direction:column;
-        text-align:center;
-        padding:60px 5%;
-    }
-
-    .hero-left h1{
-        font-size:40px;
-    }
-
-    .hero-left p{
-        font-size:17px;
-    }
-
-    .buttons{
-        justify-content:center;
-    }
-
-    .phone{
-        width:290px;
-        margin-top:20px;
-    }
-
-    .feature-grid{
-        grid-template-columns:1fr;
-    }
-
-    .step-container{
-        grid-template-columns:1fr;
-    }
-
-}
-
-/* ===========================================
    iPhone Portrait
 =========================================== */
 
-@media (max-width:480px){
+@media (max-width:576px){
 
-    .logo img{
-        width:42px;
-        height:42px;
-    }
+header{
+    padding:18px 20px;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+}
 
-    .logo-text h2{
-        font-size:20px;
-    }
+.logo img{
+    width:42px;
+    height:42px;
+}
 
-    .logo-text p{
-        font-size:14px;
-    }
+.logo-text h2{
+    font-size:20px;
+}
 
-    nav a{
-        font-size:14px;
-    }
+.logo-text p{
+    font-size:14px;
+}
 
-    .login-btn{
-        padding:10px 20px;
-    }
+/* Hide navigation */
+nav{
+    display:none;
+}
 
-    .hero{
-        padding:50px 20px;
-    }
+/* Show hamburger */
+.menu-toggle{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+}
 
-    .hero-left h1{
-        font-size:32px;
-    }
+.menu-toggle span{
+    width:28px;
+    height:3px;
+    background:#222;
+    border-radius:20px;
+}
 
-    .hero-left p{
-        font-size:16px;
-    }
+.hero{
+    flex-direction:column;
+    text-align:center;
+    padding:50px 20px;
+}
 
-    .buttons{
-        flex-direction:column;
-        align-items:center;
-    }
+.hero-left h1{
+    font-size:32px;
+}
 
-    .primary,
-    .secondary{
-        width:100%;
-        max-width:280px;
-    }
+.hero-left p{
+    font-size:16px;
+}
 
-    .phone{
-        width:100%;
-        max-width:280px;
-    }
+.buttons{
+    flex-direction:column;
+    align-items:center;
+}
 
-    .features h2,
-    .steps h2,
-    .cta h2{
-        font-size:30px;
-    }
+.primary,
+.secondary{
+    width:100%;
+    max-width:280px;
+}
 
-    footer{
-        padding:25px;
-        font-size:14px;
-    }
+.phone{
+    width:100%;
+    max-width:280px;
+    margin-top:30px;
+}
+
+.feature-grid{
+    grid-template-columns:1fr;
+}
+
+.step-container{
+    grid-template-columns:1fr;
+}
+
+.features h2,
+.steps h2,
+.cta h2{
+    font-size:30px;
+}
+
+footer{
+    padding:25px;
+    font-size:14px;
+}
 
 }
