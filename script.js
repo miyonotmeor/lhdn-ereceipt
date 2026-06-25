@@ -97,23 +97,23 @@ if (confirmPassword && toggleConfirmPassword) {
 }
 
 /* ==========================================
-   SCROLL ANIMATION
+   SCROLL ANIMATION (FIXED)
 ========================================== */
 
-if (!window.location.pathname.includes("login") && !window.location.pathname.includes("register"))
+const sections = document.querySelectorAll("section");
 
-if (sections.length > 0 && !window.location.pathname.includes("login") && !window.location.pathname.includes("register")) {
+if (
+    sections.length > 0 &&
+    !window.location.pathname.includes("login") &&
+    !window.location.pathname.includes("register")
+) {
 
     const observer = new IntersectionObserver((entries) => {
 
         entries.forEach(entry => {
-
             if (entry.isIntersecting) {
-
                 entry.target.classList.add("show");
-
             }
-
         });
 
     }, {
@@ -121,13 +121,8 @@ if (sections.length > 0 && !window.location.pathname.includes("login") && !windo
     });
 
     sections.forEach((section, index) => {
-
-        if (index !== 0) {
-            section.classList.add("hidden");
-        }
-
+        if (index !== 0) section.classList.add("hidden");
         observer.observe(section);
-
     });
 
 }
@@ -135,6 +130,7 @@ if (sections.length > 0 && !window.location.pathname.includes("login") && !windo
 /* ==========================================
    LOGIN SYSTEM
 ========================================== */
+
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
@@ -151,24 +147,25 @@ if (loginForm) {
 
         // CASE 1: EMAIL NOT FOUND
         if (!user) {
-            if (confirm("No account found with this email.\n\nGo to Register page?")) {
+            if (confirm("No account found with this email.\nGo to Register page?")) {
                 window.location.href = "register.html";
             }
             return;
         }
 
-        // CASE 2: PASSWORD WRONG
+        // CASE 2: WRONG PASSWORD
         if (user.password !== loginPassword) {
             alert("Invalid password. Please try again.");
             return;
         }
 
-        // CASE 3: SUCCESS LOGIN
-        if (document.getElementById("rememberMe").checked) {
-    localStorage.setItem("loggedUser", JSON.stringify(user));
-} else {
-    sessionStorage.setItem("loggedUser", JSON.stringify(user));
-}
+        // CASE 3: LOGIN SUCCESS
+        if (document.getElementById("rememberMe")?.checked) {
+            localStorage.setItem("loggedUser", JSON.stringify(user));
+        } else {
+            sessionStorage.setItem("loggedUser", JSON.stringify(user));
+        }
+
         window.location.href = "dashboard.html";
     });
 
@@ -228,16 +225,14 @@ if (registerForm) {
 /* ==========================================
    DASHBOARD SYSTEM
 ========================================== */
-const currentUser = JSON.parse(localStorage.getItem("loggedUser") || "null");
+const currentUser =
+    JSON.parse(localStorage.getItem("loggedUser")) ||
+    JSON.parse(sessionStorage.getItem("loggedUser")) ||
+    null;
 
 if (window.location.pathname.includes("dashboard.html") && !currentUser) {
+    alert("Session expired. Please login again.");
     window.location.href = "login.html";
-}
-
-const welcomeName = document.getElementById("welcomeName");
-
-if (welcomeName && currentUser) {
-    welcomeName.textContent = "Welcome Back, " + currentUser.fullname;
 }
 
 /* ==========================================
@@ -251,8 +246,32 @@ if (logoutLink) {
         e.preventDefault();
 
         localStorage.removeItem("loggedUser");
+sessionStorage.removeItem("loggedUser");
 
+alert("You have been logged out from the system.");
+
+window.location.href = "login.html";
+    });
+
+}
+
+/* ==========================================
+   ADD
+========================================== */
+if (window.location.pathname.includes("dashboard.html")) {
+
+    history.pushState(null, null, location.href);
+
+    window.addEventListener("popstate", function () {
+        history.pushState(null, null, location.href);
+        alert("Session expired. Please login again.");
         window.location.href = "login.html";
+    });
+
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
     });
 
 }
