@@ -391,9 +391,31 @@ header{
     font-size:14px;
 }
 
-/* Hide navigation */
 nav{
     display:none;
+    position:absolute;
+    top:86px;
+    left:0;
+    width:100%;
+    background:#fff;
+    flex-direction:column;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+nav.active{
+    display:flex;
+}
+
+nav a{
+    width:100%;
+    padding:18px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+.login-btn{
+    margin:20px;
+    width:calc(100% - 40px);
 }
 
 /* Show hamburger */
