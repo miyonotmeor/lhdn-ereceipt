@@ -39,11 +39,41 @@ header{
 }
 
 .logo{
-    font-size:28px;
-    font-weight:800;
+    display:flex;
+    align-items:center;
+    gap:16px;
 }
 
-.logo span{
+.logo img{
+    width:60px;
+    height:60px;
+    object-fit:contain;
+    transition:.35s ease;
+}
+
+.logo img:hover{
+    transform:rotate(-5deg) scale(1.06);
+}
+
+.logo-text{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    line-height:1;
+}
+
+.logo-text h2{
+    font-size:28px;
+    font-weight:800;
+    color:#1A3D8F;
+    margin:0;
+    letter-spacing:.5px;
+}
+
+.logo-text p{
+    margin-top:3px;
+    font-size:18px;
+    font-weight:700;
     color:#FFC72C;
 }
 
