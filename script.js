@@ -10,9 +10,7 @@ if ("scrollRestoration" in history) {
 history.scrollRestoration = "manual";
 
 window.addEventListener("load", () => {
-
-    window.scrollTo(0,0);
-
+    window.scrollTo(0, 0);
 });
 
 /* ==========================================
@@ -22,18 +20,18 @@ window.addEventListener("load", () => {
 const menuToggle = document.getElementById("menuToggle");
 const navbar = document.getElementById("navbar");
 
-if(menuToggle && navbar){
+if (menuToggle && navbar) {
 
-    menuToggle.addEventListener("click",()=>{
+    menuToggle.addEventListener("click", () => {
 
         navbar.classList.toggle("active");
         menuToggle.classList.toggle("active");
 
     });
 
-    document.querySelectorAll("#navbar a").forEach(link=>{
+    document.querySelectorAll("#navbar a").forEach(link => {
 
-        link.addEventListener("click",()=>{
+        link.addEventListener("click", () => {
 
             navbar.classList.remove("active");
             menuToggle.classList.remove("active");
@@ -44,31 +42,26 @@ if(menuToggle && navbar){
 
 }
 
-
 /* ==========================================
    SHOW / HIDE PASSWORD
 ========================================== */
 
-const password=document.getElementById("password");
-const togglePassword=document.getElementById("togglePassword");
+const password = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
 
-if(password && togglePassword){
+if (password && togglePassword) {
 
-    togglePassword.addEventListener("click",()=>{
+    togglePassword.addEventListener("click", () => {
 
-        if(password.type==="password"){
+        if (password.type === "password") {
 
-            password.type="text";
+            password.type = "text";
+            togglePassword.classList.replace("fa-eye", "fa-eye-slash");
 
-            togglePassword.classList.replace("fa-eye","fa-eye-slash");
+        } else {
 
-        }
-
-        else{
-
-            password.type="password";
-
-            togglePassword.classList.replace("fa-eye-slash","fa-eye");
+            password.type = "password";
+            togglePassword.classList.replace("fa-eye-slash", "fa-eye");
 
         }
 
@@ -83,19 +76,19 @@ if(password && togglePassword){
 const confirmPassword = document.getElementById("confirmPassword");
 const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
 
-if(confirmPassword && toggleConfirmPassword){
+if (confirmPassword && toggleConfirmPassword) {
 
-    toggleConfirmPassword.addEventListener("click",()=>{
+    toggleConfirmPassword.addEventListener("click", () => {
 
-        if(confirmPassword.type==="password"){
+        if (confirmPassword.type === "password") {
 
-            confirmPassword.type="text";
-            toggleConfirmPassword.classList.replace("fa-eye","fa-eye-slash");
+            confirmPassword.type = "text";
+            toggleConfirmPassword.classList.replace("fa-eye", "fa-eye-slash");
 
-        }else{
+        } else {
 
-            confirmPassword.type="password";
-            toggleConfirmPassword.classList.replace("fa-eye-slash","fa-eye");
+            confirmPassword.type = "password";
+            toggleConfirmPassword.classList.replace("fa-eye-slash", "fa-eye");
 
         }
 
@@ -107,15 +100,15 @@ if(confirmPassword && toggleConfirmPassword){
    SCROLL ANIMATION
 ========================================== */
 
-const sections=document.querySelectorAll("section");
+const sections = document.querySelectorAll("section");
 
-if(sections.length>0){
+if (sections.length > 0) {
 
-    const observer=new IntersectionObserver((entries)=>{
+    const observer = new IntersectionObserver((entries) => {
 
-        entries.forEach(entry=>{
+        entries.forEach(entry => {
 
-            if(entry.isIntersecting){
+            if (entry.isIntersecting) {
 
                 entry.target.classList.add("show");
 
@@ -123,26 +116,21 @@ if(sections.length>0){
 
         });
 
-    },{
+    }, {
+        threshold: 0.15
+    });
 
-        threshold:0.15
+    sections.forEach((section, index) => {
+
+        if (index !== 0) {
+            section.classList.add("hidden");
+        }
+
+        observer.observe(section);
 
     });
 
-    sections.forEach((section,index)=>{
-
-    if(index!==0){
-
-        section.classList.add("hidden");
-
-    }
-
-    observer.observe(section);
-
-});
-
 }
-
 
 /* ==========================================
    LOGIN VALIDATION
@@ -150,81 +138,74 @@ if(sections.length>0){
 
 const loginForm = document.getElementById("loginForm");
 
-if(loginForm){
+if (loginForm) {
 
-loginForm.addEventListener("submit",function(e){
+    loginForm.addEventListener("submit", function (e) {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const email=document.getElementById("email").value.trim().toLowerCase();
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
 
-    const password=document.getElementById("password").value;
+        if (email === "") {
 
-    if(email===""){
-
-        alert("Please enter your email address.");
-
-        return;
-
-    }
-
-    if(password===""){
-
-        alert("Please enter your password.");
-
-        return;
-
-    }
-
-    let users=JSON.parse(localStorage.getItem("registeredUsers")) || [];
-
-    const user=users.find(u=>u.email===email);
-
-    if(!user){
-
-        const goRegister=confirm(
-            "There is no account registered with this email.\n\nWould you like to create one?"
-        );
-
-        if(goRegister){
-
-            window.location.href="register.html";
+            alert("Please enter your email address.");
+            return;
 
         }
 
-        return;
+        if (password === "") {
 
-    }
+            alert("Please enter your password.");
+            return;
 
-    if(user.password!==password){
+        }
 
-        alert("Incorrect password.");
+        let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
 
-        return;
+        const user = users.find(u => u.email === email);
 
-    }
+        if (!user) {
 
-    const button=document.getElementById("loginButton");
+            const goRegister = confirm(
+                "There is no account registered with this email.\n\nWould you like to create one?"
+            );
 
-    button.disabled=true;
+            if (goRegister) {
+                window.location.href = "register.html";
+            }
 
-    button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
+            return;
 
-    setTimeout(()=>{
+        }
 
-        const remember = document.querySelector(".options input[type='checkbox']").checked;
+        if (user.password !== password) {
 
-if (remember) {
-    localStorage.setItem("loggedInUser", JSON.stringify(user));
-} else {
-    sessionStorage.setItem("loggedInUser", JSON.stringify(user));
-}
+            alert("Incorrect password.");
+            return;
 
-window.location.href = "dashboard.html";
+        }
 
-    },1200);
+        const button = document.getElementById("loginButton");
 
-});
+        button.disabled = true;
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
+
+        setTimeout(() => {
+
+            const remember = document.querySelector(".options input[type='checkbox']").checked;
+
+            if (remember) {
+                localStorage.setItem("loggedInUser", JSON.stringify(user));
+            } else {
+                sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+            }
+
+            window.location.href = "dashboard.html";
+
+        }, 1200);
+
+    });
 
 }
 
@@ -234,100 +215,99 @@ window.location.href = "dashboard.html";
 
 const registerForm = document.getElementById("registerForm");
 
-if(registerForm){
+if (registerForm) {
 
-registerForm.addEventListener("submit",function(e){
+    registerForm.addEventListener("submit", function (e) {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const fullname=document.getElementById("fullname").value.trim();
-    const email=document.getElementById("email").value.trim().toLowerCase();
-    const phone=document.getElementById("phone").value.trim();
-    const password=document.getElementById("password").value;
-    const confirmPassword=document.getElementById("confirmPassword").value;
-    const agree=document.getElementById("agreeTerms").checked;
+        const fullname = document.getElementById("fullname").value.trim();
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const phone = document.getElementById("phone").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        const agree = document.getElementById("agreeTerms").checked;
 
-    if(fullname===""){
+        if (fullname === "") {
 
-        alert("Please enter your full name.");
-        return;
+            alert("Please enter your full name.");
+            return;
 
-    }
+        }
 
-    if(email===""){
+        if (email === "") {
 
-        alert("Please enter your email address.");
-        return;
+            alert("Please enter your email address.");
+            return;
 
-    }
+        }
 
-    if(phone===""){
+        if (phone === "") {
 
-        alert("Please enter your phone number.");
-        return;
+            alert("Please enter your phone number.");
+            return;
 
-    }
+        }
 
-    if(password.length<8){
+        if (password.length < 8) {
 
-        alert("Password must be at least 8 characters.");
-        return;
+            alert("Password must be at least 8 characters.");
+            return;
 
-    }
+        }
 
-    if(password!==confirmPassword){
+        if (password !== confirmPassword) {
 
-        alert("Password and Confirm Password do not match.");
-        return;
+            alert("Password and Confirm Password do not match.");
+            return;
 
-    }
+        }
 
-    if(!agree){
+        if (!agree) {
 
-        alert("Please agree to the Terms & Conditions.");
-        return;
+            alert("Please agree to the Terms & Conditions.");
+            return;
 
-    }
+        }
 
-    let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+        let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
 
-    const emailExists = users.some(user=>user.email===email);
+        const emailExists = users.some(user => user.email === email);
 
-    if(emailExists){
+        if (emailExists) {
 
-        alert("This email is already registered.\n\nPlease login instead.");
+            alert("This email is already registered.\n\nPlease login instead.");
 
-        window.location.href="login.html";
+            window.location.href = "login.html";
 
-        return;
+            return;
 
-    }
+        }
 
-    users.push({
+        users.push({
 
-        fullname:fullname,
-        email:email,
-        phone:phone,
-        password:password
+            fullname: fullname,
+            email: email,
+            phone: phone,
+            password: password
+
+        });
+
+        localStorage.setItem("registeredUsers", JSON.stringify(users));
+
+        const button = document.getElementById("registerButton");
+
+        button.disabled = true;
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+
+        setTimeout(() => {
+
+            alert("Registration Successful!");
+
+            window.location.href = "login.html";
+
+        }, 1200);
 
     });
-
-    localStorage.setItem("registeredUsers",JSON.stringify(users));
-
-    const button=document.getElementById("registerButton");
-
-    button.disabled=true;
-
-    button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
-
-    setTimeout(()=>{
-
-        alert("Registration Successful!");
-
-        window.location.href="login.html";
-
-    },1200);
-
-});
 
 }
