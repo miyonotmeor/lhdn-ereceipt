@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - LHDN eReceipt</title>
+<link rel="icon" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+body{background:linear-gradient(135deg,#f8f9fc,#eef3ff);}
+.login-page{min-height:calc(100vh - 120px);display:flex;justify-content:center;align-items:center;padding:70px 20px;}
+.login-card{max-width:470px;width:100%;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);padding:42px;border-radius:30px;box-shadow:0 25px 60px rgba(0,0,0,.12);animation:floatCard 5s ease-in-out infinite;}
+.logo-top{text-align:center;margin-bottom:30px;}
+.logo-top img{width:80px;margin-bottom:15px;}
+.logo-top h2{font-size:40px;color:#1A3D8F;}
+.logo-top p{color:#666;}
+.form-group{margin-bottom:22px;}
+.form-group label{display:block;font-weight:600;margin-bottom:8px;}
+.input-box{position:relative;}
+.input-box i:first-child{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#888;}
+.input-box input{width:100%;padding:15px 50px 15px 48px;border:2px solid #ddd;border-radius:15px;font-family:Poppins,sans-serif;}
+.input-box input:focus{outline:none;border-color:#FFC72C;box-shadow:0 0 0 5px rgba(255,199,44,.25);}
+.password-toggle{position:absolute;right:18px;top:50%;transform:translateY(-50%);cursor:pointer;}
+.options{display:flex;justify-content:space-between;margin:18px 0 28px;font-size:14px;}
+.options a{color:#1A3D8F;font-weight:600;}
+.login-main-btn,.register-btn{width:100%;padding:16px;border-radius:50px;font-weight:700;font-size:16px;font-family:Poppins,sans-serif;cursor:pointer;transition:.3s;}
+.login-main-btn{border:none;background:#FFC72C;}
+.login-main-btn:hover{transform:translateY(-4px);box-shadow:0 15px 35px rgba(255,199,44,.45);}
+.register-btn{margin-top:18px;border:2px solid #FFC72C;background:#fff;}
+.register-btn:hover{background:#FFC72C;}
+@keyframes floatCard{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+@media(max-width:576px){.login-card{padding:30px}.logo-top h2{font-size:32px}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">
+<img src="logo.png" alt="Logo">
+<div class="logo-text"><h2>LHDN</h2><p>eReceipt</p></div>
+</div>
+<div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+<nav id="navbar">
+<a href="index.html">Home</a>
+<a href="index.html#features">Features</a>
+<a href="index.html#about">About</a>
+<a href="index.html#contact">Contact</a>
+<a href="login.html" class="login-btn">Login</a>
+</nav>
+</header>
+<section class="login-page">
+<div class="login-card">
+<div class="logo-top">
+<img src="logo.png" alt="Logo">
+<h2>Welcome Back</h2>
+<p>Sign in to your LHDN eReceipt account</p>
+</div>
+<form id="loginForm">
+<div class="form-group">
+<label>Email Address</label>
+<div class="input-box">
+<i class="fa-solid fa-envelope"></i>
+<input type="email" placeholder="name@email.com">
+</div>
+</div>
+<div class="form-group">
+<label>Password</label>
+<div class="input-box">
+<i class="fa-solid fa-lock"></i>
+<input id="password" type="password" placeholder="Enter your password">
+<i id="togglePassword" class="fa-solid fa-eye password-toggle"></i>
+</div>
+</div>
+<div class="options">
+<label><input type="checkbox"> Remember Me</label>
+<a href="#">Forgot Password?</a>
+</div>
+<button id="loginButton" class="login-main-btn" type="submit">Login</button>
+<button class="register-btn" type="button" onclick="location.href='register.html'">Create New Account</button>
+</form>
+</div>
+</section>
+<footer><p>© 2026 LHDN eReceipt • AI‑Powered Progressive Web Application</p></footer>
+<script>
+const mt=document.getElementById('menuToggle');
+const nb=document.getElementById('navbar');
+if(mt){mt.onclick=()=>{nb.classList.toggle('active');mt.classList.toggle('active');};}
+const pw=document.getElementById('password');
+const eye=document.getElementById('togglePassword');
+eye.onclick=()=>{if(pw.type==='password'){pw.type='text';eye.classList.replace('fa-eye','fa-eye-slash');}else{pw.type='password';eye.classList.replace('fa-eye-slash','fa-eye');}};
+document.getElementById('loginForm').onsubmit=(e)=>{e.preventDefault();const b=document.getElementById('loginButton');b.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';setTimeout(()=>{b.innerHTML='<i class="fa-solid fa-circle-check"></i> Login Successful';},1200);}
+</script>
+</body>
+</html>
