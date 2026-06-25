@@ -16,9 +16,31 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+
+    <style>
+        html, body {
+            scroll-behavior: auto !important;
+            overflow-anchor: none;
+        }
+    </style>
+
 </head>
 
 <body>
+
+    <script>
+        window.addEventListener("load", () => {
+            window.scrollTo(0, 0);
+        });
+
+        window.addEventListener("pageshow", (event) => {
+            window.scrollTo(0, 0);
+        });
+
+        if ("scrollRestoration" in history) {
+            history.scrollRestoration = "manual";
+        }
+    </script>
 
     <header>
 
@@ -110,9 +132,7 @@
                     <div style="margin-top:25px;">
 
                         <button class="app-btn">📷 Scan</button>
-
                         <button class="app-btn">📂 History</button>
-
                         <button class="app-btn">📊 Reports</button>
 
                     </div>
@@ -129,82 +149,44 @@
 
         <h2>Everything You Need</h2>
 
-        <p>
-            Powerful tools for managing all your LHDN receipts.
-        </p>
+        <p>Powerful tools for managing all your LHDN receipts.</p>
 
         <div class="feature-grid">
 
             <div class="feature-card">
-
                 <div class="icon">📷</div>
-
                 <h3>Camera Scanner</h3>
-
-                <p>
-                    Capture receipts directly using your device camera.
-                </p>
-
+                <p>Capture receipts directly using your device camera.</p>
             </div>
 
             <div class="feature-card">
-
                 <div class="icon">🤖</div>
-
                 <h3>AI OCR</h3>
-
-                <p>
-                    Automatically detect merchant, amount, date and tax.
-                </p>
-
+                <p>Automatically detect merchant, amount, date and tax.</p>
             </div>
 
             <div class="feature-card">
-
                 <div class="icon">📊</div>
-
                 <h3>Analytics</h3>
-
-                <p>
-                    View your monthly expenses with beautiful charts.
-                </p>
-
+                <p>View your monthly expenses with beautiful charts.</p>
             </div>
 
             <div class="feature-card">
-
                 <div class="icon">☁️</div>
-
                 <h3>Cloud Sync</h3>
-
-                <p>
-                    Access your receipts from any device.
-                </p>
-
+                <p>Access your receipts from any device.</p>
             </div>
 
             <div class="feature-card">
-
                 <div class="icon">📄</div>
-
                 <h3>PDF Export</h3>
-
-                <p>
-                    Export receipts into professional PDF reports.
-                </p>
-
+                <p>Export receipts into professional PDF reports.</p>
             </div>
 
             <div class="feature-card">
-
                 <div class="icon">🔒</div>
-
                 <h3>Secure Storage</h3>
-
-                <p>
-                    Your receipts are securely stored and always available.
-                </p>
-
+                <p>Your receipts are securely stored and always available.</p>
             </div>
 
         </div>
@@ -217,45 +199,10 @@
 
         <div class="step-container">
 
-            <div class="step">
-
-                <span>1</span>
-
-                <h3>Scan</h3>
-
-                <p>Capture your receipt instantly.</p>
-
-            </div>
-
-            <div class="step">
-
-                <span>2</span>
-
-                <h3>AI Reads</h3>
-
-                <p>OCR extracts all information.</p>
-
-            </div>
-
-            <div class="step">
-
-                <span>3</span>
-
-                <h3>Verify</h3>
-
-                <p>Review and edit if needed.</p>
-
-            </div>
-
-            <div class="step">
-
-                <span>4</span>
-
-                <h3>Save</h3>
-
-                <p>Your receipt is securely stored.</p>
-
-            </div>
+            <div class="step"><span>1</span><h3>Scan</h3><p>Capture your receipt instantly.</p></div>
+            <div class="step"><span>2</span><h3>AI Reads</h3><p>OCR extracts all information.</p></div>
+            <div class="step"><span>3</span><h3>Verify</h3><p>Review and edit if needed.</p></div>
+            <div class="step"><span>4</span><h3>Save</h3><p>Your receipt is securely stored.</p></div>
 
         </div>
 
@@ -263,31 +210,16 @@
 
     <section class="cta">
 
-        <h2>
-            Ready to simplify your receipt management?
-        </h2>
+        <h2>Ready to simplify your receipt management?</h2>
+        <p>Join thousands of users managing their LHDN receipts smarter.</p>
 
-        <p>
-            Join thousands of users managing their LHDN receipts smarter.
-        </p>
-
-        <a href="register.html" class="cta-button">
-            Create Free Account
-        </a>
+        <a href="register.html" class="cta-button">Create Free Account</a>
 
     </section>
 
     <footer id="contact">
-
-        <p>
-            © 2026 LHDN eReceipt
-            AI-Powered Progressive Web Application
-        </p>
-
+        <p>© 2026 LHDN eReceipt AI-Powered Progressive Web Application</p>
     </footer>
 
-    <script src="script.js"></script>
-
 </body>
-
 </html>
