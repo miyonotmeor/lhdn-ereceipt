@@ -577,3 +577,149 @@ footer{
     opacity:1;
     transform:translateY(0);
 }
+
+/* ===========================================
+   LOGIN PAGE
+=========================================== */
+
+body{
+    background:linear-gradient(135deg,#f8f9fc,#eef3ff);
+}
+
+.login-page{
+    min-height:calc(100vh - 120px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:70px 20px;
+}
+
+.login-card{
+    max-width:470px;
+    width:100%;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(18px);
+    padding:42px;
+    border-radius:30px;
+    box-shadow:0 25px 60px rgba(0,0,0,.12);
+    animation:fadeUp .8s ease;
+}
+
+.logo-top{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo-top img{
+    width:80px;
+    margin-bottom:15px;
+}
+
+.logo-top h2{
+    font-size:40px;
+    color:#1A3D8F;
+}
+
+.logo-top p{
+    color:#666;
+}
+
+.form-group{
+    margin-bottom:22px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.input-box{
+    position:relative;
+}
+
+.input-box i:first-child{
+    position:absolute;
+    left:16px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#888;
+}
+
+.input-box input{
+    width:100%;
+    padding:15px 50px 15px 48px;
+    border:2px solid #ddd;
+    border-radius:15px;
+    font-family:'Poppins',sans-serif;
+}
+
+.input-box input:focus{
+    outline:none;
+    border-color:#FFC72C;
+    box-shadow:0 0 0 5px rgba(255,199,44,.25);
+}
+
+.password-toggle{
+    position:absolute;
+    right:18px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+}
+
+.options{
+    display:flex;
+    justify-content:space-between;
+    margin:18px 0 28px;
+    font-size:14px;
+}
+
+.options a{
+    color:#1A3D8F;
+    font-weight:600;
+}
+
+.login-main-btn,
+.register-btn{
+    width:100%;
+    padding:16px;
+    border-radius:50px;
+    font-weight:700;
+    font-size:16px;
+    font-family:'Poppins',sans-serif;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.login-main-btn{
+    border:none;
+    background:#FFC72C;
+}
+
+.login-main-btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 35px rgba(255,199,44,.45);
+}
+
+.register-btn{
+    margin-top:18px;
+    border:2px solid #FFC72C;
+    background:#fff;
+}
+
+.register-btn:hover{
+    background:#FFC72C;
+}
+
+@media(max-width:576px){
+
+    .login-card{
+        padding:30px;
+    }
+
+    .logo-top h2{
+        font-size:32px;
+    }
+
+}
