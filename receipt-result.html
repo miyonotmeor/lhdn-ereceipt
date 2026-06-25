@@ -7,7 +7,7 @@
 
     <style>
         body{
-            font-family: Arial;
+            font-family:'Poppins',sans-serif;
             background:#f5f6f8;
         }
 
@@ -21,6 +21,7 @@
             border-radius:20px;
             margin-bottom:20px;
             box-shadow:0 10px 30px rgba(0,0,0,0.08);
+            animation:fadeUp .6s ease;
         }
 
         .preview-img{
@@ -36,12 +37,42 @@
             font-weight:700;
             cursor:pointer;
             width:100%;
+            transition:.3s;
+        }
+
+        .btn:hover{
+            transform:translateY(-3px);
+            box-shadow:0 10px 25px rgba(255,199,44,.4);
         }
 
         .official{
             padding:20px;
             border:2px dashed #1A3D8F;
             border-radius:15px;
+            background:#f9fbff;
+        }
+
+        .status{
+            font-weight:700;
+            color:#1A3D8F;
+        }
+
+        /* empty state */
+        .empty{
+            text-align:center;
+            padding:60px;
+            color:#666;
+        }
+
+        @keyframes fadeUp{
+            from{
+                opacity:0;
+                transform:translateY(30px);
+            }
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
         }
     </style>
 </head>
@@ -59,9 +90,9 @@
         <h2>Extracted Data</h2>
         <p id="amount">Amount: -</p>
         <p id="date">Date: -</p>
-        <p id="status">Status: pending</p>
         <p id="tax">Tax: -</p>
         <p id="total">Total: -</p>
+        <p class="status" id="status">Status: pending</p>
     </div>
 
     <!-- ORIGINAL IMAGE -->
@@ -93,7 +124,7 @@
 
 <script>
 /* =========================
-   GET RECEIPT BY ID (FIXED)
+   GET RECEIPT (SAFE ENGINE)
 ========================= */
 
 const params = new URLSearchParams(window.location.search);
@@ -103,40 +134,50 @@ let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
 
 const receipt = receipts.find(r => r.id == id);
 
+/* =========================
+   EMPTY STATE FIX
+========================= */
+
 if (!receipt) {
-    alert("Receipt not found. Please scan again.");
-    window.location.href = "scan.html";
+    document.body.innerHTML = `
+        <div class="empty">
+            <h2>No Receipt Found</h2>
+            <p>Please scan a receipt first.</p>
+            <button class="btn" onclick="location.href='scan.html'">Go to Scan</button>
+        </div>
+    `;
 }
 
 /* =========================
-   CALCULATE VALUES
+   CALC ENGINE
 ========================= */
 
 const amount = parseFloat((receipt.amount || "0").replace(/[^\d.]/g, ""));
-const tax = receipt.tax || (amount * 0.06);
-const total = receipt.total || (amount + tax);
+const tax = receipt.tax ?? amount * 0.06;
+const total = receipt.total ?? (amount + tax);
 
 /* =========================
-   DISPLAY DATA
+   RENDER DATA
 ========================= */
 
 document.getElementById("amount").textContent = "Amount: RM" + amount.toFixed(2);
-document.getElementById("date").textContent = "Date: " + receipt.date;
-document.getElementById("status").textContent = "Status: " + receipt.status;
+document.getElementById("date").textContent = "Date: " + (receipt.date || "Unknown");
 
-document.getElementById("tax").textContent = "Tax: RM" + tax.toFixed(2);
+document.getElementById("tax").textContent = "Tax (6% SST): RM" + tax.toFixed(2);
 document.getElementById("total").textContent = "Total: RM" + total.toFixed(2);
+
+document.getElementById("status").textContent = "Status: " + (receipt.status || "pending");
 
 document.getElementById("originalImage").src = receipt.image;
 
-/* OFFICIAL PREVIEW */
+/* OFFICIAL */
 document.getElementById("oAmount").textContent = "Amount: RM" + amount.toFixed(2);
-document.getElementById("oDate").textContent = "Date: " + receipt.date;
-document.getElementById("oTax").textContent = "Tax (6% SST): RM" + tax.toFixed(2);
+document.getElementById("oDate").textContent = "Date: " + (receipt.date || "Unknown");
+document.getElementById("oTax").textContent = "Tax: RM" + tax.toFixed(2);
 document.getElementById("oTotal").textContent = "Total: RM" + total.toFixed(2);
 
 /* =========================
-   SAVE FUNCTION (FIXED ENGINE)
+   SAVE ENGINE (SYNC FIX)
 ========================= */
 
 function saveReceipt(){
@@ -146,11 +187,9 @@ function saveReceipt(){
     const index = receipts.findIndex(r => r.id == id);
 
     if(index !== -1){
-
         receipts[index].status = "verified";
         receipts[index].tax = tax;
         receipts[index].total = total;
-
     }
 
     localStorage.setItem("receipts", JSON.stringify(receipts));
