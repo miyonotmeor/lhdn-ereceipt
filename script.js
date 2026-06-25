@@ -129,6 +129,20 @@ if (
 
 window.addEventListener("load", () => {
     const dashboard = document.querySelector(".dashboard");
+    const welcome = document.querySelector(".welcome");
+
+    if (dashboard) {
+        setTimeout(() => {
+            dashboard.classList.add("show");
+        }, 150);
+    }
+
+    if (welcome) {
+        setTimeout(() => {
+            welcome.classList.add("show");
+        }, 250);
+    }
+});
 
     if (dashboard) {
         setTimeout(() => {
