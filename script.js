@@ -153,23 +153,23 @@ if (loginForm) {
 
         let users = JSON.parse(localStorage.getItem("users")) || [];
 
+        // STEP 1: CHECK EMAIL EXISTS
         const user = users.find(u => u.email === email);
 
-        // CASE 1: EMAIL NOT FOUND
         if (!user) {
-            if (confirm("No account found with this email.\nGo to Register page?")) {
+            if (confirm("No account found with this email.\n\nWould you like to register now?")) {
                 window.location.href = "register.html";
             }
             return;
         }
 
-        // CASE 2: WRONG PASSWORD
+        // STEP 2: CHECK PASSWORD
         if (user.password !== loginPassword) {
             alert("Invalid password. Please try again.");
             return;
         }
 
-        // CASE 3: LOGIN SUCCESS
+        // STEP 3: LOGIN SUCCESS
         if (document.getElementById("rememberMe")?.checked) {
             localStorage.setItem("loggedUser", JSON.stringify(user));
         } else {
