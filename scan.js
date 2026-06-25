@@ -52,7 +52,7 @@ captureBtn.addEventListener("click", async () => {
 
     alert("Receipt scanned successfully!");
 
-    window.location.href = "dashboard.html";
+    window.location.href = "receipt-result.html";
 });
 
 // ================================
@@ -70,7 +70,7 @@ uploadInput.addEventListener("change", (event) => {
     reader.onload = function(e) {
         localStorage.setItem("lastReceiptImage", e.target.result);
         alert("Receipt uploaded successfully!");
-        window.location.href = "dashboard.html";
+        window.location.href = "receipt-result.html";
     };
 
     reader.readAsDataURL(file);
