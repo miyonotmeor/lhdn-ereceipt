@@ -11,19 +11,70 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <style>
-body{
+*{
     margin:0;
-    font-family:Poppins, Arial, sans-serif;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-/* FORCE VISIBILITY FIX */
-.hidden{opacity:1 !important; transform:none !important;}
-.show{opacity:1 !important; transform:none !important;}
+body{
+    background:#f5f6f8;
+}
 
+/* HEADER (MATCH INDEX/LOGIN STYLE) */
+header{
+    width:100%;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(14px);
+    position:sticky;
+    top:0;
+    z-index:999;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:inherit;
+}
+
+.logo img{
+    width:45px;
+    height:45px;
+}
+
+/* NAV */
+nav{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+nav a{
+    text-decoration:none;
+    font-weight:600;
+    color:#222;
+}
+
+.logout-btn{
+    background:#FFC72C;
+    padding:10px 18px;
+    border-radius:30px;
+}
+
+/* DASHBOARD */
 .dashboard{
     padding:40px 8%;
 }
 
+/* WELCOME */
 .welcome{
     background:linear-gradient(135deg,#1A3D8F,#2b5fd1);
     color:white;
@@ -32,6 +83,7 @@ body{
     margin-bottom:30px;
 }
 
+/* STATS + ACTIONS */
 .stats,.actions{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -43,9 +95,10 @@ body{
     background:white;
     border-radius:20px;
     padding:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
+/* BUTTONS */
 .action button{
     margin-top:10px;
     padding:10px 20px;
@@ -53,9 +106,10 @@ body{
     border-radius:30px;
     background:#FFC72C;
     cursor:pointer;
-    font-weight:bold;
+    font-weight:700;
 }
 
+/* TABLE */
 table{
     width:100%;
     border-collapse:collapse;
@@ -66,6 +120,13 @@ th,td{
     border-bottom:1px solid #eee;
     text-align:left;
 }
+
+/* FORCE SHOW (FIX BLANK ISSUE) */
+.hidden,.show{
+    opacity:1 !important;
+    transform:none !important;
+}
+
 </style>
 
 </head>
@@ -73,8 +134,9 @@ th,td{
 <body>
 
 <header>
+
     <a href="index.html" class="logo">
-        <img src="logo.png" style="height:40px;">
+        <img src="logo.png">
         <div>
             <h2>LHDN</h2>
             <p>eReceipt</p>
@@ -82,12 +144,13 @@ th,td{
     </a>
 
     <nav>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="scan.html">Scan</a>
-        <a href="history.html">History</a>
-        <a href="reports.html">Reports</a>
-        <a href="#" id="logoutLink" style="color:red;">Logout</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="logout.html" class="logout-btn" id="logoutLink">Logout</a>
     </nav>
+
 </header>
 
 <main class="dashboard">
@@ -162,6 +225,7 @@ th,td{
                 <th>Status</th>
             </tr>
         </thead>
+
         <tbody id="receiptTable">
             <tr>
                 <td colspan="4" style="text-align:center;">No receipts found</td>
@@ -176,56 +240,46 @@ th,td{
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-    try {
+    // FIX SCROLL TOP
+    window.scrollTo(0,0);
 
-        const user = JSON.parse(localStorage.getItem("loggedUser"));
-        if (user && document.getElementById("welcomeName")) {
-            document.getElementById("welcomeName").textContent = "Hi, " + user.fullname;
-        }
-
-        const receipts = JSON.parse(localStorage.getItem("receipts") || "[]");
-
-        document.getElementById("totalReceipts").textContent = receipts.length;
-
-        const verified = receipts.filter(r => r.status === "verified").length;
-        const pending = receipts.filter(r => r.status === "pending").length;
-
-        document.getElementById("verifiedReceipts").textContent = verified;
-        document.getElementById("pendingReceipts").textContent = pending;
-
-        let totalTax = 0;
-
-        receipts.forEach(r => {
-            let amt = parseFloat((r.amount || "0").replace(/[^\d.]/g, ""));
-            if (!isNaN(amt)) totalTax += amt;
-        });
-
-        document.getElementById("totalTaxPaid").textContent = "RM" + totalTax.toFixed(2);
-
-        const table = document.getElementById("receiptTable");
-        table.innerHTML = "";
-
-        if (receipts.length === 0) {
-            table.innerHTML = `<tr><td colspan="4" style="text-align:center;">No receipts found</td></tr>`;
-            return;
-        }
-
-        receipts.slice().reverse().forEach(r => {
-            table.innerHTML += `
-                <tr>
-                    <td>${new Date(r.createdAt || Date.now()).getFullYear()}</td>
-                    <td>${r.date || "-"}</td>
-                    <td>${r.amount || "RM0.00"}</td>
-                    <td>${r.status || "pending"}</td>
-                </tr>
-            `;
-        });
-
-    } catch (e) {
-        console.log("Dashboard error fixed:", e);
+    // USER
+    const user = JSON.parse(localStorage.getItem("loggedUser"));
+    if (user) {
+        document.getElementById("welcomeName").textContent = "Hi, " + user.fullname;
     }
 
+    // RECEIPTS
+    const receipts = JSON.parse(localStorage.getItem("receipts") || "[]");
+
+    document.getElementById("totalReceipts").textContent = receipts.length;
+    document.getElementById("verifiedReceipts").textContent = receipts.filter(r=>r.status==="verified").length;
+    document.getElementById("pendingReceipts").textContent = receipts.filter(r=>r.status==="pending").length;
+
+    let totalTax = 0;
+    receipts.forEach(r=>{
+        let amt = parseFloat((r.amount||"0").replace(/[^\d.]/g,""));
+        if(!isNaN(amt)) totalTax += amt;
+    });
+
+    document.getElementById("totalTaxPaid").textContent = "RM" + totalTax.toFixed(2);
+
+    // TABLE
+    const table = document.getElementById("receiptTable");
+    table.innerHTML = "";
+
+    receipts.slice().reverse().forEach(r=>{
+        table.innerHTML += `
+        <tr>
+            <td>${new Date(r.createdAt||Date.now()).getFullYear()}</td>
+            <td>${r.date||"-"}</td>
+            <td>${r.amount||"RM0.00"}</td>
+            <td>${r.status||"pending"}</td>
+        </tr>`;
+    });
+
 });
+
 </script>
 
 </body>
