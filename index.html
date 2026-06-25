@@ -1,331 +1,293 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LHDN eReceipt</title>
 
-<link rel="icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
 
     <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
 
-<header>
+    <header>
 
-    <div class="logo">
+        <div class="logo">
 
-    <img src="logo.png" alt="LHDN eReceipt Logo">
+            <img src="logo.png" alt="LHDN eReceipt Logo">
 
-    <div class="logo-text">
+            <div class="logo-text">
+                <h2>LHDN</h2>
+                <p>eReceipt</p>
+            </div>
 
-        <h2>LHDN</h2>
+        </div>
 
-        <p>eReceipt</p>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-    </div>
+        <nav id="navbar">
 
-</div>
+            <a href="index.html">Home</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="login.html" class="login-btn">Login</a>
 
-<div class="menu-toggle" id="menuToggle">
-    <span></span>
-    <span></span>
-    <span></span>
-</div>
+        </nav>
 
-<nav id="navbar">
+    </header>
 
-    <a href="index.html">Home</a>
+    <section class="hero">
 
-    <a href="#features">Features</a>
+        <div class="hero-left">
 
-    <a href="#about">About</a>
+            <h1>
+                AI-Powered Receipt Management
+                for LHDN Taxpayers
+            </h1>
 
-    <a href="#contact">Contact</a>
+            <p>
+                Scan, organize, analyse and securely store your
+                LHDN receipts in one beautiful application.
+                Built with AI and OCR technology.
+            </p>
 
-    <a href="login.html" class="login-btn">Login</a>
+            <div class="buttons">
 
-</nav>
+                <a href="login.html" class="primary">
+                    📷 Scan Receipt
+                </a>
 
-</header>
+                <a href="#features" class="secondary">
+                    Learn More
+                </a>
 
-<section class="hero">
+            </div>
 
-    <div class="hero-left">
+        </div>
 
-        <h1>
+        <div class="hero-right">
 
-            AI-Powered Receipt Management
-            for LHDN Taxpayers
+            <div class="phone">
 
-        </h1>
+                <div class="screen">
+
+                    <h3>Good Morning 👋</h3>
+
+                    <p style="font-size:15px;color:#777;margin-bottom:20px;">
+                        Welcome back, Amirrul
+                    </p>
+
+                    <div class="receipt-card">
+                        <span>📄 Tax Records</span>
+                        <strong>36</strong>
+                    </div>
+
+                    <div class="receipt-card">
+                        <span>✅ Verified</span>
+                        <strong>34</strong>
+                    </div>
+
+                    <div class="receipt-card">
+                        <span>⏳ Pending</span>
+                        <strong>2</strong>
+                    </div>
+
+                    <div style="margin-top:25px;">
+
+                        <button class="app-btn">📷 Scan</button>
+
+                        <button class="app-btn">📂 History</button>
+
+                        <button class="app-btn">📊 Reports</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="features" class="features">
+
+        <h2>Everything You Need</h2>
 
         <p>
-
-            Scan, organize, analyse and securely store your
-            LHDN receipts in one beautiful application.
-
-            Built with AI and OCR technology.
-
+            Powerful tools for managing all your LHDN receipts.
         </p>
 
-        <div class="buttons">
+        <div class="feature-grid">
 
-            <a href="login.html" class="primary">
+            <div class="feature-card">
 
-    📷 Scan Receipt
+                <div class="icon">📷</div>
 
-</a>
+                <h3>Camera Scanner</h3>
 
-            <a href="#features" class="secondary">
+                <p>
+                    Capture receipts directly using your device camera.
+                </p>
 
-    Learn More
+            </div>
 
-</a>
+            <div class="feature-card">
 
-        </div>
+                <div class="icon">🤖</div>
 
-    </div>
+                <h3>AI OCR</h3>
 
-    <div class="hero-right">
+                <p>
+                    Automatically detect merchant, amount, date and tax.
+                </p>
 
-        <div class="phone">
+            </div>
 
-            <div class="screen">
+            <div class="feature-card">
 
-    <h3>Good Morning 👋</h3>
+                <div class="icon">📊</div>
 
-    <p style="font-size:15px;color:#777;margin-bottom:20px;">
-        Welcome back, Amirrul
-    </p>
+                <h3>Analytics</h3>
 
-    <div class="receipt-card">
-        <span>📄 Tax Records</span>
-        <strong>36</strong>
-    </div>
+                <p>
+                    View your monthly expenses with beautiful charts.
+                </p>
 
-    <div class="receipt-card">
-        <span>✅ Verified</span>
-        <strong>34</strong>
-    </div>
+            </div>
 
-    <div class="receipt-card">
-        <span>⏳ Pending</span>
-        <strong>2</strong>
-    </div>
+            <div class="feature-card">
 
-    <div style="margin-top:25px;">
+                <div class="icon">☁️</div>
 
-        <button class="app-btn">📷 Scan</button>
+                <h3>Cloud Sync</h3>
 
-        <button class="app-btn">📂 History</button>
+                <p>
+                    Access your receipts from any device.
+                </p>
 
-        <button class="app-btn">📊 Reports</button>
+            </div>
 
-    </div>
+            <div class="feature-card">
 
-</div>
+                <div class="icon">📄</div>
 
-        </div>
+                <h3>PDF Export</h3>
 
-    </div>
+                <p>
+                    Export receipts into professional PDF reports.
+                </p>
 
-</section>
+            </div>
 
-<section id="features" class="features">
+            <div class="feature-card">
 
-    <h2>Everything You Need</h2>
+                <div class="icon">🔒</div>
 
-    <p>
+                <h3>Secure Storage</h3>
 
-        Powerful tools for managing all your LHDN receipts.
+                <p>
+                    Your receipts are securely stored and always available.
+                </p>
 
-    </p>
-
-    <div class="feature-grid">
-
-        <div class="feature-card">
-
-            <div class="icon">📷</div>
-
-            <h3>Camera Scanner</h3>
-
-            <p>
-
-                Capture receipts directly using your device camera.
-
-            </p>
+            </div>
 
         </div>
 
-        <div class="feature-card">
+    </section>
 
-            <div class="icon">🤖</div>
+    <section id="about" class="steps">
 
-            <h3>AI OCR</h3>
+        <h2>How It Works</h2>
 
-            <p>
+        <div class="step-container">
 
-                Automatically detect merchant, amount, date and tax.
+            <div class="step">
 
-            </p>
+                <span>1</span>
 
-        </div>
+                <h3>Scan</h3>
 
-        <div class="feature-card">
+                <p>Capture your receipt instantly.</p>
 
-            <div class="icon">📊</div>
+            </div>
 
-            <h3>Analytics</h3>
+            <div class="step">
 
-            <p>
+                <span>2</span>
 
-                View your monthly expenses with beautiful charts.
+                <h3>AI Reads</h3>
 
-            </p>
+                <p>OCR extracts all information.</p>
 
-        </div>
+            </div>
 
-        <div class="feature-card">
+            <div class="step">
 
-            <div class="icon">☁️</div>
+                <span>3</span>
 
-            <h3>Cloud Sync</h3>
+                <h3>Verify</h3>
 
-            <p>
+                <p>Review and edit if needed.</p>
 
-                Access your receipts from any device.
+            </div>
 
-            </p>
+            <div class="step">
 
-        </div>
+                <span>4</span>
 
-        <div class="feature-card">
+                <h3>Save</h3>
 
-            <div class="icon">📄</div>
+                <p>Your receipt is securely stored.</p>
 
-            <h3>PDF Export</h3>
-
-            <p>
-
-                Export receipts into professional PDF reports.
-
-            </p>
+            </div>
 
         </div>
 
-        <div class="feature-card">
+    </section>
 
-            <div class="icon">🔒</div>
+    <section class="cta">
 
-            <h3>Secure Storage</h3>
+        <h2>
+            Ready to simplify your receipt management?
+        </h2>
 
-            <p>
+        <p>
+            Join thousands of users managing their LHDN receipts smarter.
+        </p>
 
-                Your receipts are securely stored and always available.
+        <a href="register.html" class="cta-button">
+            Create Free Account
+        </a>
 
-            </p>
+    </section>
 
-        </div>
+    <footer id="contact">
 
-    </div>
+        <p>
+            © 2026 LHDN eReceipt
+            AI-Powered Progressive Web Application
+        </p>
 
-</section>
+    </footer>
 
-<section id="about" class="steps">
-
-    <h2>How It Works</h2>
-
-    <div class="step-container">
-
-        <div class="step">
-
-            <span>1</span>
-
-            <h3>Scan</h3>
-
-            <p>Capture your receipt instantly.</p>
-
-        </div>
-
-        <div class="step">
-
-            <span>2</span>
-
-            <h3>AI Reads</h3>
-
-            <p>OCR extracts all information.</p>
-
-        </div>
-
-        <div class="step">
-
-            <span>3</span>
-
-            <h3>Verify</h3>
-
-            <p>Review and edit if needed.</p>
-
-        </div>
-
-        <div class="step">
-
-            <span>4</span>
-
-            <h3>Save</h3>
-
-            <p>Your receipt is securely stored.</p>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section class="cta">
-
-    <h2>
-
-        Ready to simplify your receipt management?
-
-    </h2>
-
-    <p>
-
-        Join thousands of users managing their LHDN receipts smarter.
-
-    </p>
-
-    <a href="register.html" class="cta-button">
-
-    Create Free Account
-
-</a>
-
-</section>
-
-<footer id="contact">
-
-    <p>
-
-        © 2026 LHDN eReceipt
-
-        AI-Powered Progressive Web Application
-
-    </p>
-
-</footer>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
