@@ -128,27 +128,24 @@ if (
 }
 
 window.addEventListener("load", () => {
+
     const dashboard = document.querySelector(".dashboard");
     const welcome = document.querySelector(".welcome");
 
+    // Dashboard animation
     if (dashboard) {
         setTimeout(() => {
             dashboard.classList.add("show");
         }, 150);
     }
 
+    // Welcome card animation
     if (welcome) {
         setTimeout(() => {
             welcome.classList.add("show");
         }, 250);
     }
-});
 
-    if (dashboard) {
-        setTimeout(() => {
-            dashboard.classList.add("show");
-        }, 150);
-    }
 });
 
 /* ==========================================
