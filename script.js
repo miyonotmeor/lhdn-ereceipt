@@ -256,6 +256,18 @@ if (window.location.pathname.includes("dashboard.html") && !currentUser) {
     window.location.href = "login.html";
 }
 
+const lastReceiptData = JSON.parse(localStorage.getItem("lastReceiptData") || "null");
+
+if (window.location.pathname.includes("dashboard.html") && lastReceiptData) {
+
+    document.getElementById("totalReceipts").textContent =
+        parseInt(document.getElementById("totalReceipts").textContent) + 1;
+
+    document.getElementById("totalTaxPaid").textContent =
+        lastReceiptData.amount;
+
+}
+
 /* ==========================================
    LOGOUT SYSTEM
 ========================================== */
