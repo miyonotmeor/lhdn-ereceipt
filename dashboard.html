@@ -146,16 +146,14 @@ if (user && welcome) {
 }
 
 /* =========================
-   MAIN DASHBOARD ENGINE
+   LOAD DASHBOARD DATA
 ========================= */
 
-function loadDashboard() {
+window.addEventListener("load", () => {
 
     const receipts = JSON.parse(localStorage.getItem("receipts")) || [];
 
-    // -------------------------
-    // STATS
-    // -------------------------
+    // stats
     const total = receipts.length;
     const verified = receipts.filter(r => r.status === "verified").length;
     const pending = receipts.filter(r => r.status === "pending").length;
@@ -164,6 +162,7 @@ function loadDashboard() {
     document.getElementById("verifiedReceipts").textContent = verified;
     document.getElementById("pendingReceipts").textContent = pending;
 
+    // tax
     const totalTax = receipts.reduce((sum, r) => {
         const amount = parseFloat((r.amount || "0").replace(/[^\d.]/g, ""));
         return sum + (isNaN(amount) ? 0 : amount);
@@ -172,50 +171,23 @@ function loadDashboard() {
     document.getElementById("totalTaxPaid").textContent =
         "RM" + totalTax.toFixed(2);
 
-    // -------------------------
-    // TABLE RENDER
-    // -------------------------
+    // table
     const table = document.getElementById("receiptTable");
 
-    if (receipts.length === 0) {
-        table.innerHTML = `
-            <tr>
-                <td colspan="4" style="text-align:center;padding:40px;">
-                    No LHDN payment receipts found.
-                </td>
-            </tr>
-        `;
-        return;
-    }
+    if (receipts.length === 0) return;
 
     table.innerHTML = "";
 
     receipts.slice().reverse().forEach(r => {
-
-        const row = `
+        table.innerHTML += `
             <tr>
-                <td>${new Date(r.createdAt).getFullYear()}</td>
+                <td>${new Date(r.createdAt || Date.now()).getFullYear()}</td>
                 <td>${r.date || "-"}</td>
                 <td>${r.amount || "RM0.00"}</td>
                 <td>${r.status || "pending"}</td>
             </tr>
         `;
-
-        table.innerHTML += row;
     });
-}
-
-/* =========================
-   AUTO REFRESH SYSTEM
-========================= */
-
-window.addEventListener("load", () => {
-
-    loadDashboard();
-
-    // 🔥 auto refresh every 2 seconds (important for scan updates)
-    setInterval(loadDashboard, 2000);
-
 });
 
 /* =========================
@@ -227,7 +199,7 @@ window.addEventListener("load", () => {
     document.querySelectorAll(".hidden").forEach((el, i) => {
         setTimeout(() => {
             el.classList.add("show");
-        }, i * 100);
+        }, i * 120);
     });
 
 });
