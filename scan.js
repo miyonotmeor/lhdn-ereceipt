@@ -15,11 +15,50 @@ navigator.mediaDevices.getUserMedia({
 });
 
 // ================================
-// CAPTURE IMAGE
+// ELEMENTS
 // ================================
 
 const canvas = document.getElementById("canvas");
 const captureBtn = document.getElementById("captureBtn");
+const uploadInput = document.getElementById("uploadInput");
+
+// ================================
+// CORE RECEIPT ENGINE
+// ================================
+
+function createReceipt(image, text) {
+
+    const parsed = parseReceipt(text);
+
+    return {
+        id: Date.now(),
+        image: image,
+        amount: parsed.amount,
+        date: parsed.date,
+        rawText: text,
+        status: "pending",
+        createdAt: new Date().toISOString()
+    };
+}
+
+// ================================
+// SAVE RECEIPT TO DB
+// ================================
+
+function saveReceipt(receipt) {
+
+    let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+
+    receipts.push(receipt);
+
+    localStorage.setItem("receipts", JSON.stringify(receipts));
+
+    console.log("SAVED RECEIPT:", receipt);
+}
+
+// ================================
+// CAPTURE IMAGE (CAMERA)
+// ================================
 
 captureBtn.addEventListener("click", async () => {
 
@@ -32,88 +71,51 @@ captureBtn.addEventListener("click", async () => {
 
     const image = canvas.toDataURL("image/png");
 
-    // SAVE IMAGE
-    localStorage.setItem("lastReceiptImage", image);
-
-    // SHOW LOADING
     alert("Scanning receipt... please wait");
 
-    // OCR PROCESS
     const text = await extractTextFromImage(image);
 
-    console.log("OCR TEXT:", text);
+    const receipt = createReceipt(image, text);
 
-    localStorage.setItem("lastReceiptText", text);
+    saveReceipt(receipt);
 
-    // PARSE DATA
-const parsedData = parseReceipt(text);
+    alert("Receipt scanned successfully!");
 
-// CREATE RECEIPT OBJECT
-const receipt = {
-    id: Date.now(),
-    image: image,
-    amount: parsedData.amount,
-    date: parsedData.date,
-    rawText: text,
-    status: "pending"
-};
-
-// GET EXISTING RECEIPTS
-let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
-
-// ADD NEW RECEIPT
-receipts.push(receipt);
-
-// SAVE BACK
-localStorage.setItem("receipts", JSON.stringify(receipts));
-
-// OPTIONAL DEBUG
-console.log("ALL RECEIPTS:", receipts);
-
-// REDIRECT
-alert("Receipt scanned successfully!");
-window.location.href = "receipt-result.html?id=" + receipt.id;
+    window.location.href = "receipt-result.html?id=" + receipt.id;
+});
 
 // ================================
-// UPLOAD IMAGE (OPTION)
+// UPLOAD IMAGE
 // ================================
 
-const uploadInput = document.getElementById("uploadInput");
-
-uploadInput.addEventListener("change", (event) => {
+uploadInput.addEventListener("change", async (event) => {
 
     const file = event.target.files[0];
 
     const reader = new FileReader();
 
-    reader.onload = function(e) {
-        localStorage.setItem("lastReceiptImage", e.target.result);
-        // STEP 1: show success
-alert("Receipt scanned successfully!");
+    reader.onload = async function(e) {
 
-// STEP 2: ensure everything is stored properly
-let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+        const image = e.target.result;
 
-receipts.push({
-    ...parsedData,
-    image: image,
-    createdAt: new Date().toISOString(),
-    status: "pending"
-});
+        alert("Scanning uploaded receipt... please wait");
 
-localStorage.setItem("receipts", JSON.stringify(receipts));
+        const text = await extractTextFromImage(image);
 
-// STEP 3: force small delay (IMPORTANT FIX)
-setTimeout(() => {
-    window.location.href = "receipt-result.html";
-}, 300);
+        const receipt = createReceipt(image, text);
+
+        saveReceipt(receipt);
+
+        alert("Receipt scanned successfully!");
+
+        window.location.href = "receipt-result.html?id=" + receipt.id;
     };
 
     reader.readAsDataURL(file);
 });
 
 // ================================
-// OCR PROCESS (IMAGE → TEXT)
+// OCR ENGINE
 // ================================
 
 async function extractTextFromImage(imageData) {
@@ -130,7 +132,7 @@ async function extractTextFromImage(imageData) {
 }
 
 // ================================
-// PARSE RECEIPT DATA
+// RECEIPT PARSER (IMPROVED)
 // ================================
 
 function parseReceipt(text) {
@@ -140,7 +142,6 @@ function parseReceipt(text) {
 
     return {
         amount: amount ? amount[0] : "RM0.00",
-        date: date ? date[0] : "Unknown",
-        rawText: text
+        date: date ? date[0] : "Unknown"
     };
 }
