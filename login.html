@@ -103,43 +103,8 @@ body{background:linear-gradient(135deg,#f8f9fc,#eef3ff);}
 </div>
 </section>
 <footer><p>© 2026 LHDN eReceipt • AI‑Powered Progressive Web Application</p></footer>
-<script>
-const mt=document.getElementById('menuToggle');
-const nb=document.getElementById('navbar');
-if(mt){mt.onclick=()=>{nb.classList.toggle('active');mt.classList.toggle('active');};}
-const pw=document.getElementById('password');
-const eye=document.getElementById('togglePassword');
-eye.onclick=()=>{if(pw.type==='password'){pw.type='text';eye.classList.replace('fa-eye','fa-eye-slash');}else{pw.type='password';eye.classList.replace('fa-eye-slash','fa-eye');}};
+  
+<script src="script.js"></script>
 
-  document.getElementById("loginForm").addEventListener("submit",function(e){
-
-    e.preventDefault();
-
-    const email=document.getElementById("email").value.trim();
-    const password=document.getElementById("password").value.trim();
-
-    if(email===""){
-        alert("Please enter your email address.");
-        return;
-    }
-
-    if(password===""){
-        alert("Please enter your password.");
-        return;
-    }
-
-    const button=document.getElementById("loginButton");
-
-    button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
-    button.disabled=true;
-
-    setTimeout(()=>{
-
-        button.innerHTML='<i class="fa-solid fa-circle-check"></i> Login Successful';
-
-    },1200);
-
-});
-</script>
 </body>
 </html>
