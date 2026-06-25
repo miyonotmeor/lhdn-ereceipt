@@ -125,25 +125,25 @@
             <div class="card">
                 <i class="fa-solid fa-file-invoice"></i>
                 <p>Total Receipts</p>
-                <h2>36</h2>
+                <h2 id="totalReceipts">0</h2>
             </div>
 
             <div class="card">
                 <i class="fa-solid fa-circle-check"></i>
                 <p>Verified</p>
-                <h2>34</h2>
+                <h2 id="verifiedReceipts">0</h2>
             </div>
 
             <div class="card">
                 <i class="fa-solid fa-clock"></i>
                 <p>Pending</p>
-                <h2>2</h2>
+                <h2 id="pendingReceipts">0</h2>
             </div>
 
             <div class="card">
                 <i class="fa-solid fa-money-bill-wave"></i>
-                <p>Expenses</p>
-                <h2>RM 4,820</h2>
+                <p>Total Tax Paid</p>
+                <h2 id="totalTaxPaid">RM0.00</h2>
             </div>
         </section>
 
@@ -178,39 +178,20 @@
 
             <table>
                 <tr>
-                    <th>Merchant</th>
-                    <th>Date</th>
+                    <th>Tax Year</th>
+                    <th>Payment Date</th>
                     <th>Amount</th>
                     <th>Status</th>
                 </tr>
 
+                <tbody id="receiptTable">
                 <tr>
-                    <td>Lotus's</td>
-                    <td>24 Jun 2026</td>
-                    <td>RM89.50</td>
-                    <td>Verified</td>
+                    <td colspan="4" style="text-align:center;padding:40px;">
+                        No LHDN payment receipts found.
+                    </td>
                 </tr>
-
-                <tr>
-                    <td>Watsons</td>
-                    <td>23 Jun 2026</td>
-                    <td>RM56.80</td>
-                    <td>Verified</td>
-                </tr>
-
-                <tr>
-                    <td>Shell</td>
-                    <td>22 Jun 2026</td>
-                    <td>RM120.00</td>
-                    <td>Pending</td>
-                </tr>
-
-                <tr>
-                    <td>KFC</td>
-                    <td>21 Jun 2026</td>
-                    <td>RM34.20</td>
-                    <td>Verified</td>
-                </tr>
+                </tbody>
+                
             </table>
         </section>
 
@@ -223,13 +204,18 @@
     <script src="script.js"></script>
 
     <script>
+        window.history.pushState(null, "", window.location.href);
+        window.addEventListener("popstate", function () {
+            window.history.pushState(null, "", window.location.href);
+        });
+        
         let currentUser =
             JSON.parse(sessionStorage.getItem("loggedInUser")) ||
             JSON.parse(localStorage.getItem("loggedInUser"));
 
         if (!currentUser) {
             alert("Please login first.");
-            window.location.href = "login.html";
+            window.location.replace("login.html");
         }
 
         document.getElementById("welcomeName").textContent =
