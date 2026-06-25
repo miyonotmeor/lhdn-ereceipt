@@ -50,9 +50,25 @@ captureBtn.addEventListener("click", async () => {
 
     localStorage.setItem("lastReceiptData", JSON.stringify(parsedData));
 
-    alert("Receipt scanned successfully!");
+    // STEP 1: show success
+alert("Receipt scanned successfully!");
 
+// STEP 2: ensure everything is stored properly
+let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+
+receipts.push({
+    ...parsedData,
+    image: image,
+    createdAt: new Date().toISOString(),
+    status: "pending"
+});
+
+localStorage.setItem("receipts", JSON.stringify(receipts));
+
+// STEP 3: force small delay (IMPORTANT FIX)
+setTimeout(() => {
     window.location.href = "receipt-result.html";
+}, 300);
 });
 
 // ================================
@@ -69,8 +85,25 @@ uploadInput.addEventListener("change", (event) => {
 
     reader.onload = function(e) {
         localStorage.setItem("lastReceiptImage", e.target.result);
-        alert("Receipt uploaded successfully!");
-        window.location.href = "receipt-result.html";
+        // STEP 1: show success
+alert("Receipt scanned successfully!");
+
+// STEP 2: ensure everything is stored properly
+let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+
+receipts.push({
+    ...parsedData,
+    image: image,
+    createdAt: new Date().toISOString(),
+    status: "pending"
+});
+
+localStorage.setItem("receipts", JSON.stringify(receipts));
+
+// STEP 3: force small delay (IMPORTANT FIX)
+setTimeout(() => {
+    window.location.href = "receipt-result.html";
+}, 300);
     };
 
     reader.readAsDataURL(file);
