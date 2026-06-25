@@ -22,7 +22,9 @@ a{
 
 header{
     width:100%;
-    background:#fff;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
     position:sticky;
     top:0;
     z-index:999;
@@ -31,6 +33,7 @@ header{
     align-items:center;
     padding:20px 8%;
     box-shadow:0 5px 20px rgba(0,0,0,.08);
+    transition:all .35s ease;
 }
 
 .logo{
