@@ -46,30 +46,33 @@ captureBtn.addEventListener("click", async () => {
     localStorage.setItem("lastReceiptText", text);
 
     // PARSE DATA
-    const parsedData = parseReceipt(text);
+const parsedData = parseReceipt(text);
 
-    localStorage.setItem("lastReceiptData", JSON.stringify(parsedData));
+// CREATE RECEIPT OBJECT
+const receipt = {
+    id: Date.now(),
+    image: image,
+    amount: parsedData.amount,
+    date: parsedData.date,
+    rawText: text,
+    status: "pending"
+};
 
-    // STEP 1: show success
-alert("Receipt scanned successfully!");
-
-// STEP 2: ensure everything is stored properly
+// GET EXISTING RECEIPTS
 let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
 
-receipts.push({
-    ...parsedData,
-    image: image,
-    createdAt: new Date().toISOString(),
-    status: "pending"
-});
+// ADD NEW RECEIPT
+receipts.push(receipt);
 
+// SAVE BACK
 localStorage.setItem("receipts", JSON.stringify(receipts));
 
-// STEP 3: force small delay (IMPORTANT FIX)
-setTimeout(() => {
-    window.location.href = "receipt-result.html";
-}, 300);
-});
+// OPTIONAL DEBUG
+console.log("ALL RECEIPTS:", receipts);
+
+// REDIRECT
+alert("Receipt scanned successfully!");
+window.location.href = "receipt-result.html?id=" + receipt.id;
 
 // ================================
 // UPLOAD IMAGE (OPTION)
