@@ -91,7 +91,7 @@
                     Remember Me
                 </label>
 
-                <a href="forgot-password.html">Forgot Password?</a>
+                <a href="forgot-password.html" id="forgotLink">Forgot Password?</a>
             </div>
 
             <button id="loginButton" class="login-main-btn" type="submit">
@@ -112,8 +112,90 @@
     <p>© 2026 LHDN eReceipt • AI-Powered Progressive Web Application</p>
 </footer>
 
-<script src="script.js"></script>
+<script>
+/* =========================
+   ALWAYS START TOP
+========================= */
+if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+}
+window.addEventListener("load", () => window.scrollTo(0, 0));
+window.addEventListener("pageshow", () => window.scrollTo(0, 0));
+
+/* =========================
+   LOGIN ENGINE
+========================= */
+const loginForm = document.getElementById("loginForm");
+
+loginForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const password = document.getElementById("password").value;
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const user = users.find(u => u.email === email);
+
+    if (!user) {
+        alert("Account not found");
+        return;
+    }
+
+    if (user.password !== password) {
+        alert("Wrong password");
+        return;
+    }
+
+    // REMEMBER ME FIX
+    const remember = document.getElementById("rememberMe").checked;
+
+    if (remember) {
+        localStorage.setItem("loggedUser", JSON.stringify(user));
+    } else {
+        sessionStorage.setItem("loggedUser", JSON.stringify(user));
+    }
+
+    window.location.href = "dashboard.html";
+});
+
+/* =========================
+   AUTO FILL PASSWORD (REMEMBER ME)
+========================= */
+window.addEventListener("load", () => {
+    const savedUser = JSON.parse(localStorage.getItem("loggedUser"));
+    if (savedUser) {
+        document.getElementById("email").value = savedUser.email;
+        document.getElementById("password").value = savedUser.password;
+        document.getElementById("rememberMe").checked = true;
+    }
+});
+
+/* =========================
+   PASSWORD TOGGLE
+========================= */
+const password = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
+
+togglePassword.addEventListener("click", () => {
+    if (password.type === "password") {
+        password.type = "text";
+        togglePassword.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+        password.type = "password";
+        togglePassword.classList.replace("fa-eye-slash", "fa-eye");
+    }
+});
+
+/* =========================
+   FORGOT PASSWORD LINK FIX
+========================= */
+document.getElementById("forgotLink").addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "forgot-password.html";
+});
+
+</script>
 
 </body>
-
 </html>
