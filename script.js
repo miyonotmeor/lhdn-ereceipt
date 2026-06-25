@@ -164,7 +164,11 @@ if (loginForm) {
         }
 
         // CASE 3: SUCCESS LOGIN
-        localStorage.setItem("loggedUser", JSON.stringify(user));
+        if (document.getElementById("rememberMe").checked) {
+    localStorage.setItem("loggedUser", JSON.stringify(user));
+} else {
+    sessionStorage.setItem("loggedUser", JSON.stringify(user));
+}
         window.location.href = "dashboard.html";
     });
 
