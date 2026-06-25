@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Receipt Result</title>
+    <title>Receipt Result - LHDN eReceipt</title>
 
     <link rel="stylesheet" href="style.css">
 
     <style>
+        body{
+            font-family: Arial;
+            background:#f5f6f8;
+        }
+
         .result-container{
             padding:40px 8%;
         }
@@ -30,6 +35,13 @@
             border-radius:30px;
             font-weight:700;
             cursor:pointer;
+            width:100%;
+        }
+
+        .official{
+            padding:20px;
+            border:2px dashed #1A3D8F;
+            border-radius:15px;
         }
     </style>
 </head>
@@ -42,45 +54,81 @@
 
 <div class="result-container">
 
+    <!-- EXTRACTED DATA -->
     <div class="box">
         <h2>Extracted Data</h2>
-        <p id="amount"></p>
-        <p id="date"></p>
+        <p id="amount">Amount: -</p>
+        <p id="date">Date: -</p>
+        <p id="status">Status: Pending</p>
     </div>
 
+    <!-- ORIGINAL IMAGE -->
     <div class="box">
         <h2>Original Receipt</h2>
         <img id="originalImage" class="preview-img">
     </div>
 
+    <!-- OFFICIAL PREVIEW -->
     <div class="box">
         <h2>Official Preview</h2>
-        <div id="officialPreview">
-            <!-- we generate later -->
+
+        <div class="official" id="officialPreview">
+            <h3>LHDN eReceipt (System Generated)</h3>
+            <p id="oAmount"></p>
+            <p id="oDate"></p>
+            <p>Tax Status: Calculated Automatically</p>
         </div>
+
     </div>
 
-    <button class="btn" onclick="saveReceipt()">Save Receipt</button>
+    <button class="btn" onclick="saveReceipt()">
+        Save Receipt
+    </button>
 
 </div>
 
 <script>
-const data = JSON.parse(localStorage.getItem("lastReceiptData"));
-const image = localStorage.getItem("lastReceiptImage");
+/* =========================
+   SAFE LOAD DATA
+========================= */
 
-document.getElementById("amount").textContent = "Amount: " + data.amount;
-document.getElementById("date").textContent = "Date: " + data.date;
-document.getElementById("originalImage").src = image;
+const receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+const image = localStorage.getItem("lastReceiptImage") || "";
+
+// find latest receipt
+const receipt = receipts[receipts.length - 1];
+
+if (!receipt) {
+    alert("No receipt found. Please scan first.");
+    window.location.href = "scan.html";
+}
+
+/* =========================
+   DISPLAY DATA
+========================= */
+
+document.getElementById("amount").textContent = "Amount: " + (receipt.amount || "RM0.00");
+document.getElementById("date").textContent = "Date: " + (receipt.date || "Unknown");
+
+document.getElementById("originalImage").src = receipt.image || image;
+
+/* OFFICIAL PREVIEW */
+document.getElementById("oAmount").textContent = "Total: " + (receipt.amount || "RM0.00");
+document.getElementById("oDate").textContent = "Date: " + (receipt.date || "Unknown");
+
+/* =========================
+   SAVE FUNCTION (FIXED)
+========================= */
 
 function saveReceipt(){
 
     let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
 
-    receipts.push({
-        amount: data.amount,
-        date: data.date,
-        image: image
-    });
+    const index = receipts.findIndex(r => r.id === receipt.id);
+
+    if(index !== -1){
+        receipts[index].status = "verified";
+    }
 
     localStorage.setItem("receipts", JSON.stringify(receipts));
 
