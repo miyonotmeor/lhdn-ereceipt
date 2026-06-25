@@ -2,327 +2,191 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - LHDN eReceipt</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" href="logo.png">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<title>Dashboard - LHDN eReceipt</title>
 
-    <style>
-        .dashboard {
-            padding: 40px 8%;
-        }
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-        .welcome {
-            background: linear-gradient(135deg, #1A3D8F, #2b5fd1);
-            color: white;
-            padding: 35px;
-            border-radius: 25px;
-            margin-bottom: 30px;
-        }
-
-        .welcome h1 {
-            font-size: 38px;
-        }
-
-        .stats,
-        .actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .card,
-        .action,
-        .table-card {
-            background: white;
-            border-radius: 22px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
-        }
-
-        .card i,
-        .action i {
-            font-size: 38px;
-            color: #FFC72C;
-        }
-
-        .card h2 {
-            color: #1A3D8F;
-        }
-
-        .action {
-            text-align: center;
-        }
-
-        .action button {
-            margin-top: 15px;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 40px;
-            background: #FFC72C;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 14px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-        }
-
-        .logout-btn {
-            background: #d62828;
-            color: white !important;
-        }
-    </style>
 </head>
 
 <body>
 
-    <header>
+<header>
+    <a href="index.html" class="logo">
+        <img src="logo.png">
+        <div class="logo-text">
+            <h2>LHDN</h2>
+            <p>eReceipt</p>
+        </div>
+    </a>
 
-        <a href="index.html" class="logo">
+    <div class="menu-toggle" id="menuToggle">
+        <span></span><span></span><span></span>
+    </div>
 
-            <img src="logo.png">
+    <nav id="navbar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="#">Receipts</a>
+        <a href="#">Reports</a>
+        <a href="#">Profile</a>
+        <a href="#" id="logoutLink" class="login-btn logout-btn">Logout</a>
+    </nav>
+</header>
 
-            <div class="logo-text">
+<main class="dashboard">
 
-                <h2>LHDN</h2>
+    <!-- WELCOME CARD -->
+    <section class="welcome hidden" id="welcomeCard">
+        <h1 id="welcomeName">Hi 👋</h1>
+        <p>Manage all your LHDN eReceipts in one place.</p>
+    </section>
 
-                <p>eReceipt</p>
+    <!-- STATS -->
+    <section class="stats">
 
-            </div>
-
-        </a>
-
-        <div class="menu-toggle" id="menuToggle">
-
-            <span></span>
-
-            <span></span>
-
-            <span></span>
-
+        <div class="card hidden">
+            <i class="fa-solid fa-file-invoice"></i>
+            <p>Total Receipts</p>
+            <h2 id="totalReceipts">0</h2>
         </div>
 
-        <nav id="navbar">
-
-            <a href="dashboard.html">Dashboard</a>
-
-            <a href="#">Receipts</a>
-
-            <a href="#">Reports</a>
-
-            <a href="#">Profile</a>
-
-            <a href="#" id="logoutLink" class="login-btn logout-btn">Logout</a>
-
-        </nav>
-
-    </header>
-
-    <main class="dashboard">
-
-        <section class="welcome">
-
-            <h1 id="welcomeName">Welcome Back 👋</h1>
-
-            <p>Manage all your LHDN eReceipts in one place.</p>
-
-        </section>
-
-        <section class="stats">
-
-            <div class="card">
-
-                <i class="fa-solid fa-file-invoice"></i>
-
-                <p>Total Receipts</p>
-
-                <h2 id="totalReceipts">0</h2>
-
-            </div>
-
-            <div class="card">
-
-                <i class="fa-solid fa-circle-check"></i>
-
-                <p>Verified</p>
-
-                <h2 id="verifiedReceipts">0</h2>
-
-            </div>
-
-            <div class="card">
-
-                <i class="fa-solid fa-clock"></i>
-
-                <p>Pending</p>
-
-                <h2 id="pendingReceipts">0</h2>
-
-            </div>
-
-            <div class="card">
-
-                <i class="fa-solid fa-money-bill-wave"></i>
-
-                <p>Total Tax Paid</p>
-
-                <h2 id="totalTaxPaid">RM0.00</h2>
-
-            </div>
-
-        </section>
-
-        <section class="actions">
-
-            <div class="action">
-
-                <i class="fa-solid fa-camera"></i>
-
-                <h3>Scan Receipt</h3>
-
-                <button onclick="location.href='scan.html'">
-
-                    Open
-
-                </button>
-
-            </div>
-
-            <div class="action">
-
-                <i class="fa-solid fa-folder-open"></i>
-
-                <h3>History</h3>
-
-                <button onclick="location.href='history.html'">
-
-                    Open
-
-                </button>
-
-            </div>
-
-            <div class="action">
-
-                <i class="fa-solid fa-chart-column"></i>
-
-                <h3>Analytics</h3>
-
-                <button onclick="location.href='analytics.html'">
-
-                    Open
-
-                </button>
-
-            </div>
-
-            <div class="action">
-
-                <i class="fa-solid fa-file-pdf"></i>
-
-                <h3>Reports</h3>
-
-                <button onclick="location.href='reports.html'">
-
-                    Open
-
-                </button>
-
-            </div>
-
-        </section>
-
-        <section class="table-card">
-
-            <h2>Recent Receipts</h2>
-
-            <table>
-
+        <div class="card hidden">
+            <i class="fa-solid fa-circle-check"></i>
+            <p>Verified</p>
+            <h2 id="verifiedReceipts">0</h2>
+        </div>
+
+        <div class="card hidden">
+            <i class="fa-solid fa-clock"></i>
+            <p>Pending</p>
+            <h2 id="pendingReceipts">0</h2>
+        </div>
+
+        <div class="card hidden">
+            <i class="fa-solid fa-money-bill-wave"></i>
+            <p>Total Tax Paid</p>
+            <h2 id="totalTaxPaid">RM0.00</h2>
+        </div>
+
+    </section>
+
+    <!-- ACTIONS -->
+    <section class="actions">
+
+        <div class="action hidden">
+            <i class="fa-solid fa-camera"></i>
+            <h3>Scan Receipt</h3>
+            <button onclick="location.href='scan.html'">Open</button>
+        </div>
+
+        <div class="action hidden">
+            <i class="fa-solid fa-folder-open"></i>
+            <h3>History</h3>
+            <button onclick="location.href='history.html'">Open</button>
+        </div>
+
+        <div class="action hidden">
+            <i class="fa-solid fa-chart-column"></i>
+            <h3>Analytics</h3>
+            <button onclick="location.href='analytics.html'">Open</button>
+        </div>
+
+        <div class="action hidden">
+            <i class="fa-solid fa-file-pdf"></i>
+            <h3>Reports</h3>
+            <button onclick="location.href='reports.html'">Open</button>
+        </div>
+
+    </section>
+
+    <!-- TABLE -->
+    <section class="table-card hidden">
+
+        <h2>Recent Receipts</h2>
+
+        <table>
+            <tr>
+                <th>Tax Year</th>
+                <th>Payment Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+
+            <tbody id="receiptTable">
                 <tr>
-
-                    <th>Tax Year</th>
-
-                    <th>Payment Date</th>
-
-                    <th>Amount</th>
-
-                    <th>Status</th>
-
+                    <td colspan="4" style="text-align:center;padding:40px;">
+                        No LHDN payment receipts found.
+                    </td>
                 </tr>
+            </tbody>
+        </table>
 
-                <tbody id="receiptTable">
+    </section>
 
-                    <tr>
+</main>
 
-                        <td colspan="4" style="text-align:center;padding:40px;">
+<footer>
+    <p>© 2026 LHDN eReceipt • AI-Powered Progressive Web Application</p>
+</footer>
 
-                            No LHDN payment receipts found.
+<script>
+/* =========================
+   LOAD USER
+========================= */
 
-                        </td>
+const user = JSON.parse(localStorage.getItem("loggedUser"));
+const welcome = document.getElementById("welcomeName");
 
-                    </tr>
+if (user && welcome) {
+    welcome.textContent = `Hi, ${user.fullname} 👋`;
+}
 
-                </tbody>
-
-            </table>
-
-        </section>
-
-    </main>
-
-    <footer>
-
-        <p>© 2026 LHDN eReceipt • AI-Powered Progressive Web Application</p>
-
-    </footer>
-
-    <script src="script.js">
+/* =========================
+   LOAD RECEIPTS ENGINE
+========================= */
 
 window.addEventListener("load", () => {
 
-    let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+    const receipts = JSON.parse(localStorage.getItem("receipts")) || [];
 
-    let total = receipts.length;
-    let verified = receipts.filter(r => r.status === "verified").length;
-    let pending = receipts.filter(r => r.status === "pending").length;
+    const total = receipts.length;
+    const verified = receipts.filter(r => r.status === "verified").length;
+    const pending = receipts.filter(r => r.status === "pending").length;
 
     document.getElementById("totalReceipts").textContent = total;
     document.getElementById("verifiedReceipts").textContent = verified;
     document.getElementById("pendingReceipts").textContent = pending;
 
-    // OPTIONAL: tax calculation
-    let totalTax = receipts.reduce((sum, r) => {
-        let amount = parseFloat((r.amount || "0").replace(/[^\d.]/g, ""));
+    const totalTax = receipts.reduce((sum, r) => {
+        const amount = parseFloat((r.amount || "0").replace(/[^\d.]/g, ""));
         return sum + (isNaN(amount) ? 0 : amount);
     }, 0);
 
-    document.getElementById("totalTaxPaid").textContent = "RM" + totalTax.toFixed(2);
+    document.getElementById("totalTaxPaid").textContent =
+        "RM" + totalTax.toFixed(2);
+
 });
 
+/* =========================
+   ANIMATION FIX (IMPORTANT)
+========================= */
 
-    const user = JSON.parse(localStorage.getItem("loggedUser"));
+window.addEventListener("load", () => {
 
-const welcome = document.querySelector(".welcome h1");
+    const items = document.querySelectorAll(".hidden");
 
-if (user && welcome) {
-    welcome.textContent = `Hi, ${user.fullname} 👋`;
-}
+    items.forEach((el, i) => {
+        setTimeout(() => {
+            el.classList.add("show");
+        }, i * 120);
+    });
+
+});
 </script>
-    
-</body>
 
+</body>
 </html>
