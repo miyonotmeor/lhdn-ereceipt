@@ -90,6 +90,7 @@
 
 <body>
 
+    <!-- HEADER -->
     <header>
 
         <a href="index.html" class="logo">
@@ -99,7 +100,6 @@
             <div class="logo-text">
 
                 <h2>LHDN</h2>
-
                 <p>eReceipt</p>
 
             </div>
@@ -107,145 +107,95 @@
         </a>
 
         <div class="menu-toggle" id="menuToggle">
-
             <span></span>
-
             <span></span>
-
             <span></span>
-
         </div>
 
         <nav id="navbar">
 
             <a href="dashboard.html">Dashboard</a>
-
             <a href="#">Receipts</a>
-
             <a href="#">Reports</a>
-
             <a href="#">Profile</a>
 
-            <a href="#" id="logoutLink" class="login-btn logout-btn">Logout</a>
+            <a href="login.html" id="logoutLink" class="login-btn logout-btn">
+                Logout
+            </a>
 
         </nav>
 
     </header>
 
+    <!-- DASHBOARD -->
     <main class="dashboard">
 
         <section class="welcome">
 
-            <h1 id="welcomeName">Welcome Back 👋</h1>
-
-            <p>Manage all your LHDN eReceipts in one place.</p>
+            <h1 id="welcomeName">Welcome 👋</h1>
+            <p>Manage your receipts using local storage system.</p>
 
         </section>
 
+        <!-- STATS -->
         <section class="stats">
 
             <div class="card">
-
                 <i class="fa-solid fa-file-invoice"></i>
-
                 <p>Total Receipts</p>
-
                 <h2 id="totalReceipts">0</h2>
-
             </div>
 
             <div class="card">
-
                 <i class="fa-solid fa-circle-check"></i>
-
                 <p>Verified</p>
-
                 <h2 id="verifiedReceipts">0</h2>
-
             </div>
 
             <div class="card">
-
                 <i class="fa-solid fa-clock"></i>
-
                 <p>Pending</p>
-
                 <h2 id="pendingReceipts">0</h2>
-
             </div>
 
             <div class="card">
-
                 <i class="fa-solid fa-money-bill-wave"></i>
-
                 <p>Total Tax Paid</p>
-
                 <h2 id="totalTaxPaid">RM0.00</h2>
-
             </div>
 
         </section>
 
+        <!-- ACTIONS -->
         <section class="actions">
 
             <div class="action">
-
                 <i class="fa-solid fa-camera"></i>
-
                 <h3>Scan Receipt</h3>
-
-                <button onclick="location.href='scan.html'">
-
-                    Open
-
-                </button>
-
+                <button onclick="location.href='scan.html'">Open</button>
             </div>
 
             <div class="action">
-
                 <i class="fa-solid fa-folder-open"></i>
-
                 <h3>History</h3>
-
-                <button onclick="location.href='history.html'">
-
-                    Open
-
-                </button>
-
+                <button onclick="location.href='history.html'">Open</button>
             </div>
 
             <div class="action">
-
                 <i class="fa-solid fa-chart-column"></i>
-
                 <h3>Analytics</h3>
-
-                <button onclick="location.href='analytics.html'">
-
-                    Open
-
-                </button>
-
+                <button onclick="location.href='analytics.html'">Open</button>
             </div>
 
             <div class="action">
-
                 <i class="fa-solid fa-file-pdf"></i>
-
                 <h3>Reports</h3>
-
-                <button onclick="location.href='reports.html'">
-
-                    Open
-
-                </button>
-
+                <button onclick="location.href='reports.html'">Open</button>
             </div>
 
         </section>
 
+        <!-- TABLE -->
         <section class="table-card">
 
             <h2>Recent Receipts</h2>
@@ -253,27 +203,18 @@
             <table>
 
                 <tr>
-
                     <th>Tax Year</th>
-
                     <th>Payment Date</th>
-
                     <th>Amount</th>
-
                     <th>Status</th>
-
                 </tr>
 
                 <tbody id="receiptTable">
 
                     <tr>
-
                         <td colspan="4" style="text-align:center;padding:40px;">
-
-                            No LHDN payment receipts found.
-
+                            No receipts found.
                         </td>
-
                     </tr>
 
                 </tbody>
@@ -284,14 +225,17 @@
 
     </main>
 
+    <!-- FOOTER -->
     <footer>
 
-        <p>© 2026 LHDN eReceipt • AI-Powered Progressive Web Application</p>
+        <p>
+            © 2026 LHDN eReceipt • Local Storage Version
+        </p>
 
     </footer>
 
+    <!-- ONLY ONE SCRIPT -->
     <script src="script.js"></script>
-    <script type="module" src="dashboard.js"></script>
 
 </body>
 
