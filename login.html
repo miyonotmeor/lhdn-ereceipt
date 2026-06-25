@@ -23,6 +23,7 @@
 
 <body>
 
+    <!-- HEADER -->
     <header>
 
         <a href="index.html" class="logo">
@@ -55,6 +56,7 @@
 
     </header>
 
+    <!-- LOGIN -->
     <main class="login-page">
 
         <div class="login-card">
@@ -65,12 +67,13 @@
 
                 <h2>Welcome Back</h2>
 
-                <p>Sign in to your LHDN eReceipt account</p>
+                <p>Sign in using your local account</p>
 
             </div>
 
             <form id="loginForm">
 
+                <!-- EMAIL -->
                 <div class="form-group">
 
                     <label>Email Address</label>
@@ -79,12 +82,17 @@
 
                         <i class="fa-solid fa-envelope"></i>
 
-                        <input id="email" type="email" placeholder="name@email.com">
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="name@email.com"
+                            required>
 
                     </div>
 
                 </div>
 
+                <!-- PASSWORD -->
                 <div class="form-group">
 
                     <label>Password</label>
@@ -93,7 +101,11 @@
 
                         <i class="fa-solid fa-lock"></i>
 
-                        <input id="password" type="password" placeholder="Enter your password">
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            required>
 
                         <i id="togglePassword" class="fa-solid fa-eye password-toggle"></i>
 
@@ -101,10 +113,11 @@
 
                 </div>
 
+                <!-- OPTIONS -->
                 <div class="options">
 
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" id="rememberMe">
                         Remember Me
                     </label>
 
@@ -112,13 +125,19 @@
 
                 </div>
 
+                <!-- LOGIN BUTTON -->
                 <button id="loginButton" class="login-main-btn" type="submit">
                     Login
                 </button>
 
-                <button class="register-btn" type="button"
+                <!-- REGISTER -->
+                <button
+                    type="button"
+                    class="register-btn"
                     onclick="location.href='register.html'">
+
                     Create New Account
+
                 </button>
 
             </form>
@@ -127,16 +146,17 @@
 
     </main>
 
+    <!-- FOOTER -->
     <footer>
 
         <p>
-            © 2026 LHDN eReceipt • AI-Powered Progressive Web Application
+            © 2026 LHDN eReceipt • Local Storage Version
         </p>
 
     </footer>
 
-    <script type="module" src="script.js"></script>
-    <script type="module" src="login.js"></script>
+    <!-- ONLY ONE SCRIPT (IMPORTANT) -->
+    <script src="script.js"></script>
 
 </body>
 
