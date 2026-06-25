@@ -212,9 +212,15 @@ loginForm.addEventListener("submit",function(e){
 
     setTimeout(()=>{
 
-        sessionStorage.setItem("loggedInUser",JSON.stringify(user));
+        const remember = document.querySelector(".options input[type='checkbox']").checked;
 
-        window.location.href="dashboard.html";
+if (remember) {
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+} else {
+    sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+}
+
+window.location.href = "dashboard.html";
 
     },1200);
 
