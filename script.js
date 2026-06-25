@@ -296,3 +296,23 @@ if (window.location.pathname.includes("dashboard.html")) {
     });
 
 }
+
+/* ==========================================
+   DASHBOARD FORCE SHOW FIX
+========================================== */
+
+window.addEventListener("load", () => {
+
+    if (window.location.pathname.includes("dashboard.html")) {
+
+        // Force ALL dashboard elements visible
+        document.querySelectorAll(
+            ".dashboard, .welcome, .stats, .stats .card, .actions, .action, .table-card"
+        ).forEach(el => {
+            el.classList.add("show");
+            el.classList.remove("hidden");
+        });
+
+    }
+
+});
