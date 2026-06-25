@@ -1,3 +1,8 @@
+// Prevent browser from restoring previous scroll position
+if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+}
+
 /* ==========================================
    ALWAYS START AT TOP OF PAGE
 ========================================== */
