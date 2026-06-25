@@ -146,13 +146,16 @@ if (user && welcome) {
 }
 
 /* =========================
-   LOAD RECEIPTS ENGINE
+   MAIN DASHBOARD ENGINE
 ========================= */
 
-window.addEventListener("load", () => {
+function loadDashboard() {
 
     const receipts = JSON.parse(localStorage.getItem("receipts")) || [];
 
+    // -------------------------
+    // STATS
+    // -------------------------
     const total = receipts.length;
     const verified = receipts.filter(r => r.status === "verified").length;
     const pending = receipts.filter(r => r.status === "pending").length;
@@ -169,20 +172,62 @@ window.addEventListener("load", () => {
     document.getElementById("totalTaxPaid").textContent =
         "RM" + totalTax.toFixed(2);
 
-});
+    // -------------------------
+    // TABLE RENDER
+    // -------------------------
+    const table = document.getElementById("receiptTable");
+
+    if (receipts.length === 0) {
+        table.innerHTML = `
+            <tr>
+                <td colspan="4" style="text-align:center;padding:40px;">
+                    No LHDN payment receipts found.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    table.innerHTML = "";
+
+    receipts.slice().reverse().forEach(r => {
+
+        const row = `
+            <tr>
+                <td>${new Date(r.createdAt).getFullYear()}</td>
+                <td>${r.date || "-"}</td>
+                <td>${r.amount || "RM0.00"}</td>
+                <td>${r.status || "pending"}</td>
+            </tr>
+        `;
+
+        table.innerHTML += row;
+    });
+}
 
 /* =========================
-   ANIMATION FIX (IMPORTANT)
+   AUTO REFRESH SYSTEM
 ========================= */
 
 window.addEventListener("load", () => {
 
-    const items = document.querySelectorAll(".hidden");
+    loadDashboard();
 
-    items.forEach((el, i) => {
+    // 🔥 auto refresh every 2 seconds (important for scan updates)
+    setInterval(loadDashboard, 2000);
+
+});
+
+/* =========================
+   ANIMATION FIX
+========================= */
+
+window.addEventListener("load", () => {
+
+    document.querySelectorAll(".hidden").forEach((el, i) => {
         setTimeout(() => {
             el.classList.add("show");
-        }, i * 120);
+        }, i * 100);
     });
 
 });
