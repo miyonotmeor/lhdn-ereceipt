@@ -1,27 +1,7 @@
-// Firebase SDK (Modular v12)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// AUTH
-import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged,
-    updateProfile
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-// FIRESTORE
-import {
-    getFirestore,
-    doc,
-    setDoc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-// ==========================================
-// FIREBASE CONFIG (YOUR PROJECT)
-// ==========================================
 const firebaseConfig = {
   apiKey: "AIzaSyDcW6ZSGBmNvYjlt1HhuinnOgOkLf-zOJY",
   authDomain: "lhdn-ereceipt.firebaseapp.com",
@@ -31,30 +11,7 @@ const firebaseConfig = {
   appId: "1:649481280233:web:5865b021955550f1e76e78"
 };
 
-// ==========================================
-// INITIALIZE FIREBASE
-// ==========================================
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// ==========================================
-// EXPORT (FOR YOUR script.js)
-// ==========================================
-export {
-    auth,
-    db,
-
-    // AUTH FUNCTIONS
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged,
-    updateProfile,
-
-    // FIRESTORE FUNCTIONS
-    doc,
-    setDoc,
-    getDoc
-};
+export const auth = getAuth(app);
+export const db = getFirestore(app);
