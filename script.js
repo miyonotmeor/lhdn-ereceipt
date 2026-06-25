@@ -1,330 +1,225 @@
-// Prevent browser from restoring previous scroll position
-if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard - LHDN eReceipt</title>
+
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+.dashboard { padding: 40px 8%; }
+
+.welcome {
+    background: linear-gradient(135deg, #1A3D8F, #2b5fd1);
+    color: white;
+    padding: 35px;
+    border-radius: 25px;
+    margin-bottom: 30px;
 }
 
-/* ==========================================
-   ALWAYS START AT TOP OF PAGE
-========================================== */
-
-history.scrollRestoration = "manual";
-
-window.addEventListener("load", () => {
-    window.scrollTo(0, 0);
-});
-
-/* ==========================================
-   HAMBURGER MENU
-========================================== */
-
-const menuToggle = document.getElementById("menuToggle");
-const navbar = document.getElementById("navbar");
-
-if (menuToggle && navbar) {
-
-    menuToggle.addEventListener("click", () => {
-
-        navbar.classList.toggle("active");
-        menuToggle.classList.toggle("active");
-
-    });
-
-    document.querySelectorAll("#navbar a").forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            navbar.classList.remove("active");
-            menuToggle.classList.remove("active");
-
-        });
-
-    });
-
+.stats, .actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
 }
 
-/* ==========================================
-   SHOW / HIDE PASSWORD
-========================================== */
-
-const password = document.getElementById("password");
-const togglePassword = document.getElementById("togglePassword");
-
-if (password && togglePassword) {
-
-    togglePassword.addEventListener("click", () => {
-
-        if (password.type === "password") {
-
-            password.type = "text";
-            togglePassword.classList.replace("fa-eye", "fa-eye-slash");
-
-        } else {
-
-            password.type = "password";
-            togglePassword.classList.replace("fa-eye-slash", "fa-eye");
-
-        }
-
-    });
-
+.card, .action, .table-card {
+    background: white;
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-/* ==========================================
-   SHOW / HIDE CONFIRM PASSWORD
-========================================== */
+.action { text-align: center; }
 
-const confirmPassword = document.getElementById("confirmPassword");
-const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
-
-if (confirmPassword && toggleConfirmPassword) {
-
-    toggleConfirmPassword.addEventListener("click", () => {
-
-        if (confirmPassword.type === "password") {
-
-            confirmPassword.type = "text";
-            toggleConfirmPassword.classList.replace("fa-eye", "fa-eye-slash");
-
-        } else {
-
-            confirmPassword.type = "password";
-            toggleConfirmPassword.classList.replace("fa-eye-slash", "fa-eye");
-
-        }
-
-    });
-
+.action button {
+    margin-top: 15px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 40px;
+    background: #FFC72C;
+    font-weight: 700;
+    cursor: pointer;
 }
 
-/* ==========================================
-   SCROLL ANIMATION (FIXED)
-========================================== */
-
-const sections = document.querySelectorAll("section");
-
-if (
-    sections.length > 0 &&
-    !window.location.pathname.includes("login") &&
-    !window.location.pathname.includes("register")
-) {
-
-    const observer = new IntersectionObserver((entries) => {
-
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-            }
-        });
-
-    }, {
-        threshold: 0.15
-    });
-
-    sections.forEach((section, index) => {
-        if (index !== 0) section.classList.add("hidden");
-        observer.observe(section);
-    });
-
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-window.addEventListener("load", () => {
+th, td {
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
 
-    const dashboard = document.querySelector(".dashboard");
-    const welcome = document.querySelector(".welcome");
+.logout-btn {
+    background: #d62828;
+    color: white !important;
+}
+</style>
 
-    // Dashboard animation
-    if (dashboard) {
-        setTimeout(() => {
-            dashboard.classList.add("show");
-        }, 150);
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="logo">
+        <img src="logo.png">
+        <div class="logo-text">
+            <h2>LHDN</h2>
+            <p>eReceipt</p>
+        </div>
+    </a>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="scan.html">Scan</a>
+        <a href="#">Reports</a>
+        <a href="#">Profile</a>
+        <a href="#" id="logoutLink" class="logout-btn">Logout</a>
+    </nav>
+</header>
+
+<main class="dashboard">
+
+    <section class="welcome">
+        <h1 id="welcomeName">Hi 👋</h1>
+        <p>Manage all your LHDN eReceipts in one place.</p>
+    </section>
+
+    <section class="stats">
+
+        <div class="card">
+            <i class="fa-solid fa-file-invoice"></i>
+            <p>Total Receipts</p>
+            <h2 id="totalReceipts">0</h2>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-circle-check"></i>
+            <p>Verified</p>
+            <h2 id="verifiedReceipts">0</h2>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-clock"></i>
+            <p>Pending</p>
+            <h2 id="pendingReceipts">0</h2>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-money-bill-wave"></i>
+            <p>Total Tax Paid</p>
+            <h2 id="totalTaxPaid">RM0.00</h2>
+        </div>
+
+    </section>
+
+    <section class="actions">
+
+        <div class="action">
+            <i class="fa-solid fa-camera"></i>
+            <h3>Scan Receipt</h3>
+            <button onclick="location.href='scan.html'">Open</button>
+        </div>
+
+        <div class="action">
+            <i class="fa-solid fa-folder-open"></i>
+            <h3>History</h3>
+            <button onclick="location.href='history.html'">Open</button>
+        </div>
+
+        <div class="action">
+            <i class="fa-solid fa-chart-column"></i>
+            <h3>Analytics</h3>
+            <button onclick="location.href='analytics.html'">Open</button>
+        </div>
+
+        <div class="action">
+            <i class="fa-solid fa-file-pdf"></i>
+            <h3>Reports</h3>
+            <button onclick="location.href='reports.html'">Open</button>
+        </div>
+
+    </section>
+
+    <section class="table-card">
+
+        <h2>Recent Receipts</h2>
+
+        <table>
+            <tr>
+                <th>Year</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+
+            <tbody id="receiptTable">
+                <tr>
+                    <td colspan="4" style="text-align:center;padding:40px;">
+                        No receipts yet.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 LHDN eReceipt</p>
+</footer>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+
+    const user = JSON.parse(localStorage.getItem("loggedUser"));
+    if (user) {
+        document.getElementById("welcomeName").textContent = `Hi, ${user.fullname} 👋`;
     }
 
-    // Welcome card animation
-    if (welcome) {
-        setTimeout(() => {
-            welcome.classList.add("show");
-        }, 250);
-    }
+    const receipts = JSON.parse(localStorage.getItem("receipts") || "[]");
 
-});
+    document.getElementById("totalReceipts").textContent = receipts.length;
 
-/* ==========================================
-   LOGIN SYSTEM
-========================================== */
+    const verified = receipts.filter(r => r.status === "verified").length;
+    const pending = receipts.filter(r => r.status === "pending").length;
 
-const loginForm = document.getElementById("loginForm");
+    document.getElementById("verifiedReceipts").textContent = verified;
+    document.getElementById("pendingReceipts").textContent = pending;
 
-if (loginForm) {
+    let totalTax = receipts.reduce((sum, r) => {
+        let amount = parseFloat((r.amount || "0").replace(/[^\d.]/g, ""));
+        return sum + (isNaN(amount) ? 0 : amount);
+    }, 0);
 
-    loginForm.addEventListener("submit", function(e) {
-        e.preventDefault();
+    document.getElementById("totalTaxPaid").textContent = "RM" + totalTax.toFixed(2);
 
-        const email = document.getElementById("email").value.trim().toLowerCase();
-        const loginPassword = document.getElementById("password").value;
-
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-
-        // STEP 1: CHECK EMAIL EXISTS
-        const user = users.find(u => u.email === email);
-
-        if (!user) {
-            if (confirm("No account found with this email.\n\nWould you like to register now?")) {
-                window.location.href = "register.html";
-            }
-            return;
-        }
-
-        // STEP 2: CHECK PASSWORD
-        if (user.password !== loginPassword) {
-            alert("Invalid password. Please try again.");
-            return;
-        }
-
-        // STEP 3: LOGIN SUCCESS
-        if (document.getElementById("rememberMe")?.checked) {
-            localStorage.setItem("loggedUser", JSON.stringify(user));
-        } else {
-            sessionStorage.setItem("loggedUser", JSON.stringify(user));
-        }
-
-        window.location.href = "dashboard.html";
-    });
-
-}
-
-/* ==========================================
-   REGISTER SYSTEM
-========================================== */
-const registerForm = document.getElementById("registerForm");
-
-if (registerForm) {
-
-    registerForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const fullname = document.getElementById("fullname").value;
-        const email = document.getElementById("email").value.trim().toLowerCase();
-        const phone = document.getElementById("phone").value;
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-
-        // ✅ FIX: validation must be HERE
-        if (!fullname || !email || !phone || !password || !confirmPassword) {
-            alert("Please fill all fields");
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            alert("Passwords do not match");
-            return;
-        }
-
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-
-        const exists = users.some(u => u.email === email);
-
-        if (exists) {
-            alert("Email already registered");
-            return;
-        }
-
-        users.push({
-            fullname,
-            email,
-            phone,
-            password
+    const table = document.getElementById("receiptTable");
+    if (receipts.length > 0) {
+        table.innerHTML = "";
+        receipts.slice().reverse().forEach(r => {
+            table.innerHTML += `
+                <tr>
+                    <td>${new Date(r.createdAt || Date.now()).getFullYear()}</td>
+                    <td>${r.date || "-"}</td>
+                    <td>${r.amount || "RM0.00"}</td>
+                    <td>${r.status || "pending"}</td>
+                </tr>
+            `;
         });
-
-        localStorage.setItem("users", JSON.stringify(users));
-
-        alert("Account created successfully!");
-
-        window.location.href = "login.html";
-    });
-}
-
-/* ==========================================
-   DASHBOARD SYSTEM
-========================================== */
-const currentUser =
-    JSON.parse(localStorage.getItem("loggedUser")) ||
-    JSON.parse(sessionStorage.getItem("loggedUser")) ||
-    null;
-
-if (window.location.pathname.includes("dashboard.html") && !currentUser) {
-    alert("Session expired. Please login again.");
-    window.location.href = "login.html";
-}
-
-const lastReceiptData = JSON.parse(localStorage.getItem("lastReceiptData") || "null");
-
-if (window.location.pathname.includes("dashboard.html") && lastReceiptData) {
-
-    document.getElementById("totalReceipts").textContent =
-        parseInt(document.getElementById("totalReceipts").textContent) + 1;
-
-    document.getElementById("totalTaxPaid").textContent =
-        lastReceiptData.amount;
-
-}
-
-/* ==========================================
-   LOGOUT SYSTEM
-========================================== */
-const logoutLink = document.getElementById("logoutLink");
-
-if (logoutLink) {
-
-    logoutLink.addEventListener("click", function(e) {
-        e.preventDefault();
-
-        localStorage.removeItem("loggedUser");
-sessionStorage.removeItem("loggedUser");
-
-alert("You have been logged out from the system.");
-
-window.location.href = "login.html";
-    });
-
-}
-
-/* ==========================================
-   ADD
-========================================== */
-if (window.location.pathname.includes("dashboard.html")) {
-
-    history.pushState(null, null, location.href);
-
-    window.addEventListener("popstate", function () {
-        history.pushState(null, null, location.href);
-        alert("Session expired. Please login again.");
-        window.location.href = "login.html";
-    });
-
-    window.addEventListener("pageshow", function (event) {
-        if (event.persisted) {
-            window.location.reload();
-        }
-    });
-
-}
-
-/* ==========================================
-   DASHBOARD FORCE SHOW FIX
-========================================== */
-
-window.addEventListener("load", () => {
-
-    if (window.location.pathname.includes("dashboard.html")) {
-
-        // Force ALL dashboard elements visible
-        document.querySelectorAll(
-            ".dashboard, .welcome, .stats, .stats .card, .actions, .action, .table-card"
-        ).forEach(el => {
-            el.classList.add("show");
-            el.classList.remove("hidden");
-        });
-
     }
-
 });
+</script>
+
+</body>
+</html>
