@@ -76,6 +76,32 @@ if(password && togglePassword){
 
 }
 
+/* ==========================================
+   SHOW / HIDE CONFIRM PASSWORD
+========================================== */
+
+const confirmPassword = document.getElementById("confirmPassword");
+const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+
+if(confirmPassword && toggleConfirmPassword){
+
+    toggleConfirmPassword.addEventListener("click",()=>{
+
+        if(confirmPassword.type==="password"){
+
+            confirmPassword.type="text";
+            toggleConfirmPassword.classList.replace("fa-eye","fa-eye-slash");
+
+        }else{
+
+            confirmPassword.type="password";
+            toggleConfirmPassword.classList.replace("fa-eye-slash","fa-eye");
+
+        }
+
+    });
+
+}
 
 /* ==========================================
    SCROLL ANIMATION
@@ -159,6 +185,110 @@ loginForm.addEventListener("submit",function(e){
     setTimeout(()=>{
 
         button.innerHTML='<i class="fa-solid fa-circle-check"></i> Login Successful';
+
+    },1200);
+
+});
+
+}
+
+/* ==========================================
+   REGISTER ACCOUNT
+========================================== */
+
+const registerForm = document.getElementById("registerForm");
+
+if(registerForm){
+
+registerForm.addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const fullname=document.getElementById("fullname").value.trim();
+    const email=document.getElementById("email").value.trim().toLowerCase();
+    const phone=document.getElementById("phone").value.trim();
+    const password=document.getElementById("password").value;
+    const confirmPassword=document.getElementById("confirmPassword").value;
+    const agree=document.getElementById("agreeTerms").checked;
+
+    if(fullname===""){
+
+        alert("Please enter your full name.");
+        return;
+
+    }
+
+    if(email===""){
+
+        alert("Please enter your email address.");
+        return;
+
+    }
+
+    if(phone===""){
+
+        alert("Please enter your phone number.");
+        return;
+
+    }
+
+    if(password.length<8){
+
+        alert("Password must be at least 8 characters.");
+        return;
+
+    }
+
+    if(password!==confirmPassword){
+
+        alert("Password and Confirm Password do not match.");
+        return;
+
+    }
+
+    if(!agree){
+
+        alert("Please agree to the Terms & Conditions.");
+        return;
+
+    }
+
+    let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+
+    const emailExists = users.some(user=>user.email===email);
+
+    if(emailExists){
+
+        alert("This email is already registered.\n\nPlease login instead.");
+
+        window.location.href="login.html";
+
+        return;
+
+    }
+
+    users.push({
+
+        fullname:fullname,
+        email:email,
+        phone:phone,
+        password:password
+
+    });
+
+    localStorage.setItem("registeredUsers",JSON.stringify(users));
+
+    const button=document.getElementById("registerButton");
+
+    button.disabled=true;
+
+    button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+
+    setTimeout(()=>{
+
+        alert("Registration Successful!");
+
+        window.location.href="login.html";
 
     },1200);
 
