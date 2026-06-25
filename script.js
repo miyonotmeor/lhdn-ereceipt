@@ -102,7 +102,7 @@ if (confirmPassword && toggleConfirmPassword) {
 
 const sections = document.querySelectorAll("section");
 
-if (sections.length > 0) {
+if (sections.length > 0 && !window.location.pathname.includes("login") && !window.location.pathname.includes("register")) {
 
     const observer = new IntersectionObserver((entries) => {
 
@@ -128,6 +128,118 @@ if (sections.length > 0) {
 
         observer.observe(section);
 
+    });
+
+}
+
+/* ==========================================
+   LOGIN SYSTEM
+========================================== */
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+
+    loginForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const loginPassword = document.getElementById("password").value;
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        const user = users.find(u => u.email === email && u.password === loginPassword);
+
+        if (!user) {
+            alert("Invalid email or password");
+            return;
+        }
+
+        localStorage.setItem("loggedUser", JSON.stringify(user));
+
+        window.location.href = "dashboard.html";
+    });
+
+}
+
+/* ==========================================
+   REGISTER SYSTEM
+========================================== */
+const registerForm = document.getElementById("registerForm");
+
+if (registerForm) {
+
+    registerForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const fullname = document.getElementById("fullname").value;
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const phone = document.getElementById("phone").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        // ✅ FIX: validation must be HERE
+        if (!fullname || !email || !phone || !password || !confirmPassword) {
+            alert("Please fill all fields");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        const exists = users.some(u => u.email === email);
+
+        if (exists) {
+            alert("Email already registered");
+            return;
+        }
+
+        users.push({
+            fullname,
+            email,
+            phone,
+            password
+        });
+
+        localStorage.setItem("users", JSON.stringify(users));
+
+        alert("Account created successfully!");
+
+        window.location.href = "login.html";
+    });
+}
+
+/* ==========================================
+   DASHBOARD SYSTEM
+========================================== */
+const currentUser = JSON.parse(localStorage.getItem("loggedUser") || "null");
+
+if (window.location.pathname.includes("dashboard.html") && !currentUser) {
+    window.location.href = "login.html";
+}
+
+const welcomeName = document.getElementById("welcomeName");
+
+if (welcomeName && currentUser) {
+    welcomeName.textContent = "Welcome Back, " + currentUser.fullname;
+}
+
+/* ==========================================
+   LOGOUT SYSTEM
+========================================== */
+const logoutLink = document.getElementById("logoutLink");
+
+if (logoutLink) {
+
+    logoutLink.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        localStorage.removeItem("loggedUser");
+
+        window.location.href = "login.html";
     });
 
 }
