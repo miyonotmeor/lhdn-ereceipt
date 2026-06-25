@@ -1,3 +1,14 @@
+import {
+    auth,
+    db,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    updateProfile,
+    doc,
+    setDoc,
+    getDoc
+} from "./firebase.js";
+
 // Prevent browser from restoring previous scroll position
 if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
@@ -133,14 +144,14 @@ if (sections.length > 0) {
 }
 
 /* ==========================================
-   LOGIN VALIDATION
+   LOGIN (FIREBASE)
 ========================================== */
 
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
 
-    loginForm.addEventListener("submit", function (e) {
+    loginForm.addEventListener("submit", async function (e) {
 
         e.preventDefault();
 
@@ -148,42 +159,13 @@ if (loginForm) {
         const password = document.getElementById("password").value;
 
         if (email === "") {
-
             alert("Please enter your email address.");
             return;
-
         }
 
         if (password === "") {
-
             alert("Please enter your password.");
             return;
-
-        }
-
-        let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
-
-        const user = users.find(u => u.email === email);
-
-        if (!user) {
-
-            const goRegister = confirm(
-                "There is no account registered with this email.\n\nWould you like to create one?"
-            );
-
-            if (goRegister) {
-                window.location.href = "register.html";
-            }
-
-            return;
-
-        }
-
-        if (user.password !== password) {
-
-            alert("Incorrect password.");
-            return;
-
         }
 
         const button = document.getElementById("loginButton");
@@ -191,33 +173,63 @@ if (loginForm) {
         button.disabled = true;
         button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
 
-        setTimeout(() => {
+        try {
 
-            const remember = document.querySelector(".options input[type='checkbox']").checked;
+            const userCredential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
-            if (remember) {
-                localStorage.setItem("loggedInUser", JSON.stringify(user));
-            } else {
-                sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+            const user = userCredential.user;
+
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+
+            if (!userDoc.exists()) {
+
+                alert("User information not found.");
+
+                return;
+
             }
+
+            const userData = userDoc.data();
+
+            sessionStorage.setItem(
+                "loggedInUser",
+                JSON.stringify({
+                    uid: user.uid,
+                    fullname: userData.fullname,
+                    email: userData.email,
+                    phone: userData.phone
+                })
+            );
 
             window.location.href = "dashboard.html";
 
-        }, 1200);
+        } catch (error) {
+
+            alert(error.message);
+
+            button.disabled = false;
+            button.innerHTML = "Login";
+
+        }
 
     });
 
 }
 
 /* ==========================================
-   REGISTER ACCOUNT
+   REGISTER ACCOUNT (FIREBASE)
 ========================================== */
 
 const registerForm = document.getElementById("registerForm");
 
 if (registerForm) {
 
-    registerForm.addEventListener("submit", function (e) {
+    registerForm.addEventListener("submit", async function (e) {
 
         e.preventDefault();
 
@@ -229,84 +241,74 @@ if (registerForm) {
         const agree = document.getElementById("agreeTerms").checked;
 
         if (fullname === "") {
-
             alert("Please enter your full name.");
             return;
-
         }
 
         if (email === "") {
-
-            alert("Please enter your email address.");
+            alert("Please enter your email.");
             return;
-
         }
 
         if (phone === "") {
-
             alert("Please enter your phone number.");
             return;
-
         }
 
         if (password.length < 8) {
-
             alert("Password must be at least 8 characters.");
             return;
-
         }
 
         if (password !== confirmPassword) {
-
-            alert("Password and Confirm Password do not match.");
+            alert("Passwords do not match.");
             return;
-
         }
 
         if (!agree) {
-
             alert("Please agree to the Terms & Conditions.");
             return;
-
         }
-
-        let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
-
-        const emailExists = users.some(user => user.email === email);
-
-        if (emailExists) {
-
-            alert("This email is already registered.\n\nPlease login instead.");
-
-            window.location.href = "login.html";
-
-            return;
-
-        }
-
-        users.push({
-
-            fullname: fullname,
-            email: email,
-            phone: phone,
-            password: password
-
-        });
-
-        localStorage.setItem("registeredUsers", JSON.stringify(users));
 
         const button = document.getElementById("registerButton");
 
         button.disabled = true;
         button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
 
-        setTimeout(() => {
+        try {
+
+            const userCredential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+            await updateProfile(userCredential.user, {
+                displayName: fullname
+            });
+
+            await setDoc(doc(db, "users", userCredential.user.uid), {
+
+                fullname: fullname,
+                email: email,
+                phone: phone,
+                createdAt: new Date().toISOString()
+
+            });
 
             alert("Registration Successful!");
 
             window.location.href = "login.html";
 
-        }, 1200);
+        } catch (error) {
+
+            alert(error.message);
+
+            button.disabled = false;
+            button.innerHTML = "Create Account";
+
+        }
 
     });
 
