@@ -839,3 +839,13 @@ body{
     opacity: 1;
     transform: translateY(0);
 }
+
+/* SCAN PAGE ANIMATION */
+
+.login-card {
+    animation: fadeUp 0.6s ease;
+}
+
+video {
+    animation: fadeUp 0.8s ease;
+}
