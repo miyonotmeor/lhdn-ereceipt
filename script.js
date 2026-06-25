@@ -148,7 +148,7 @@ if(sections.length>0){
    LOGIN VALIDATION
 ========================================== */
 
-const loginForm=document.getElementById("loginForm");
+const loginForm = document.getElementById("loginForm");
 
 if(loginForm){
 
@@ -156,9 +156,9 @@ loginForm.addEventListener("submit",function(e){
 
     e.preventDefault();
 
-    const email=document.getElementById("email").value.trim();
+    const email=document.getElementById("email").value.trim().toLowerCase();
 
-    const password=document.getElementById("password").value.trim();
+    const password=document.getElementById("password").value;
 
     if(email===""){
 
@@ -176,15 +176,45 @@ loginForm.addEventListener("submit",function(e){
 
     }
 
-    const button=document.getElementById("loginButton");
+    let users=JSON.parse(localStorage.getItem("registeredUsers")) || [];
 
-    button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
+    const user=users.find(u=>u.email===email);
+
+    if(!user){
+
+        const goRegister=confirm(
+            "There is no account registered with this email.\n\nWould you like to create one?"
+        );
+
+        if(goRegister){
+
+            window.location.href="register.html";
+
+        }
+
+        return;
+
+    }
+
+    if(user.password!==password){
+
+        alert("Incorrect password.");
+
+        return;
+
+    }
+
+    const button=document.getElementById("loginButton");
 
     button.disabled=true;
 
+    button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
+
     setTimeout(()=>{
 
-        button.innerHTML='<i class="fa-solid fa-circle-check"></i> Login Successful';
+        sessionStorage.setItem("loggedInUser",JSON.stringify(user));
+
+        window.location.href="dashboard.html";
 
     },1200);
 
