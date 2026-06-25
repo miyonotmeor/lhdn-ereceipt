@@ -80,7 +80,7 @@
 
             </div>
 
-            <form id="registerForm">
+            <form id="registerForm" action="register.php" method="POST">
 
                 <div class="form-group">
 
@@ -90,8 +90,10 @@
 
                         <i class="fa-solid fa-user"></i>
 
-                        <input type="text"
+                        <input
+                            type="text"
                             id="fullname"
+                            name="fullname"
                             placeholder="Enter your full name"
                             required>
 
@@ -107,8 +109,10 @@
 
                         <i class="fa-solid fa-envelope"></i>
 
-                        <input type="email"
+                        <input
+                            type="email"
                             id="email"
+                            name="email"
                             placeholder="example@email.com"
                             required>
 
@@ -124,8 +128,10 @@
 
                         <i class="fa-solid fa-phone"></i>
 
-                        <input type="tel"
+                        <input
+                            type="tel"
                             id="phone"
+                            name="phone"
                             placeholder="0123456789"
                             required>
 
@@ -141,12 +147,15 @@
 
                         <i class="fa-solid fa-lock"></i>
 
-                        <input type="password"
+                        <input
+                            type="password"
                             id="password"
+                            name="password"
                             placeholder="Create password"
                             required>
 
-                        <i class="fa-solid fa-eye password-toggle"
+                        <i
+                            class="fa-solid fa-eye password-toggle"
                             id="togglePassword"></i>
 
                     </div>
@@ -161,12 +170,15 @@
 
                         <i class="fa-solid fa-lock"></i>
 
-                        <input type="password"
+                        <input
+                            type="password"
                             id="confirmPassword"
+                            name="confirmPassword"
                             placeholder="Confirm password"
                             required>
 
-                        <i class="fa-solid fa-eye password-toggle"
+                        <i
+                            class="fa-solid fa-eye password-toggle"
                             id="toggleConfirmPassword"></i>
 
                     </div>
@@ -177,8 +189,11 @@
 
                     <label>
 
-                        <input type="checkbox"
-                            id="agreeTerms">
+                        <input
+                            type="checkbox"
+                            id="agreeTerms"
+                            name="agreeTerms"
+                            required>
 
                         I agree to the
                         Terms & Conditions
@@ -187,7 +202,8 @@
 
                 </div>
 
-                <button type="submit"
+                <button
+                    type="submit"
                     id="registerButton"
                     class="login-main-btn">
 
@@ -195,7 +211,8 @@
 
                 </button>
 
-                <button type="button"
+                <button
+                    type="button"
                     class="register-btn"
                     onclick="location.href='login.html'">
 
