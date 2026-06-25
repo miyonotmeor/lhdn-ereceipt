@@ -1,4 +1,16 @@
 /* ==========================================
+   ALWAYS START AT TOP OF PAGE
+========================================== */
+
+history.scrollRestoration = "manual";
+
+window.addEventListener("load", () => {
+
+    window.scrollTo(0,0);
+
+});
+
+/* ==========================================
    HAMBURGER MENU
 ========================================== */
 
@@ -86,13 +98,17 @@ if(sections.length>0){
 
     });
 
-    sections.forEach(section=>{
+    sections.forEach((section,index)=>{
+
+    if(index!==0){
 
         section.classList.add("hidden");
 
-        observer.observe(section);
+    }
 
-    });
+    observer.observe(section);
+
+});
 
 }
 
