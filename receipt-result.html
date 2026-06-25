@@ -59,7 +59,9 @@
         <h2>Extracted Data</h2>
         <p id="amount">Amount: -</p>
         <p id="date">Date: -</p>
-        <p id="status">Status: Pending</p>
+        <p id="status">Status: pending</p>
+        <p id="tax">Tax: -</p>
+        <p id="total">Total: -</p>
     </div>
 
     <!-- ORIGINAL IMAGE -->
@@ -72,11 +74,13 @@
     <div class="box">
         <h2>Official Preview</h2>
 
-        <div class="official" id="officialPreview">
+        <div class="official">
             <h3>LHDN eReceipt (System Generated)</h3>
             <p id="oAmount"></p>
             <p id="oDate"></p>
-            <p>Tax Status: Calculated Automatically</p>
+            <p id="oTax"></p>
+            <p id="oTotal"></p>
+            <p>Status: Pending Verification</p>
         </div>
 
     </div>
@@ -89,50 +93,69 @@
 
 <script>
 /* =========================
-   SAFE LOAD DATA
+   GET RECEIPT BY ID (FIXED)
 ========================= */
 
-const receipts = JSON.parse(localStorage.getItem("receipts")) || [];
-const image = localStorage.getItem("lastReceiptImage") || "";
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
 
-// find latest receipt
-const receipt = receipts[receipts.length - 1];
+let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+
+const receipt = receipts.find(r => r.id == id);
 
 if (!receipt) {
-    alert("No receipt found. Please scan first.");
+    alert("Receipt not found. Please scan again.");
     window.location.href = "scan.html";
 }
+
+/* =========================
+   CALCULATE VALUES
+========================= */
+
+const amount = parseFloat((receipt.amount || "0").replace(/[^\d.]/g, ""));
+const tax = receipt.tax || (amount * 0.06);
+const total = receipt.total || (amount + tax);
 
 /* =========================
    DISPLAY DATA
 ========================= */
 
-document.getElementById("amount").textContent = "Amount: " + (receipt.amount || "RM0.00");
-document.getElementById("date").textContent = "Date: " + (receipt.date || "Unknown");
+document.getElementById("amount").textContent = "Amount: RM" + amount.toFixed(2);
+document.getElementById("date").textContent = "Date: " + receipt.date;
+document.getElementById("status").textContent = "Status: " + receipt.status;
 
-document.getElementById("originalImage").src = receipt.image || image;
+document.getElementById("tax").textContent = "Tax: RM" + tax.toFixed(2);
+document.getElementById("total").textContent = "Total: RM" + total.toFixed(2);
+
+document.getElementById("originalImage").src = receipt.image;
 
 /* OFFICIAL PREVIEW */
-document.getElementById("oAmount").textContent = "Total: " + (receipt.amount || "RM0.00");
-document.getElementById("oDate").textContent = "Date: " + (receipt.date || "Unknown");
+document.getElementById("oAmount").textContent = "Amount: RM" + amount.toFixed(2);
+document.getElementById("oDate").textContent = "Date: " + receipt.date;
+document.getElementById("oTax").textContent = "Tax (6% SST): RM" + tax.toFixed(2);
+document.getElementById("oTotal").textContent = "Total: RM" + total.toFixed(2);
 
 /* =========================
-   SAVE FUNCTION (FIXED)
+   SAVE FUNCTION (FIXED ENGINE)
 ========================= */
 
 function saveReceipt(){
 
     let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
 
-    const index = receipts.findIndex(r => r.id === receipt.id);
+    const index = receipts.findIndex(r => r.id == id);
 
     if(index !== -1){
+
         receipts[index].status = "verified";
+        receipts[index].tax = tax;
+        receipts[index].total = total;
+
     }
 
     localStorage.setItem("receipts", JSON.stringify(receipts));
 
-    alert("Saved!");
+    alert("Receipt saved successfully!");
 
     window.location.href = "dashboard.html";
 }
