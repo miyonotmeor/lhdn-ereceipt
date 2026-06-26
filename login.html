@@ -1,0 +1,334 @@
+<!--
+========================================================
+Project : LHDN E-Receipt
+File    : login.html
+Version : 1.0
+Author  : Amirrul Mukminin
+========================================================
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Login - LHDN E-Receipt">
+
+    <title>Login | LHDN E-Receipt</title>
+
+    <link rel="icon"
+          type="image/png"
+          href="logo.png">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<!-- ===================================================== -->
+<!-- Navigation -->
+<!-- ===================================================== -->
+
+<header>
+
+    <div class="container nav-container">
+
+        <div class="logo">
+
+            <img src="logo.png"
+                 alt="LHDN Logo">
+
+            <div class="logo-text">
+
+                <h2>LHDN E-Receipt</h2>
+
+                <span>AI-Powered Receipt Management</span>
+
+            </div>
+
+        </div>
+
+        <nav>
+
+            <ul>
+
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="index.html#features">Features</a>
+                </li>
+
+                <li>
+                    <a href="index.html#about">About</a>
+                </li>
+
+                <li>
+                    <a href="index.html#contact">Contact</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <div class="nav-buttons">
+
+            <a href="login.html"
+               class="btn-outline">
+
+                Login
+
+            </a>
+
+            <a href="register.html"
+               class="btn-primary">
+
+                Register
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ===================================================== -->
+<!-- Login -->
+<!-- ===================================================== -->
+
+<section class="login-page">
+
+    <div class="container">
+
+        <div class="login-card">
+
+            <div class="login-logo">
+
+                <img src="logo.png"
+                     alt="LHDN Logo">
+
+            </div>
+
+            <h1>
+
+                Welcome Back
+
+            </h1>
+
+            <p>
+
+                Sign in to continue to your
+                LHDN E-Receipt account.
+
+            </p>
+
+            <form id="loginForm">
+
+                <!-- Username -->
+
+                <div class="input-group">
+
+                    <label>
+
+                        Username
+
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="Enter your username"
+                            autocomplete="username"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <!-- Password -->
+
+                <div class="input-group">
+
+                    <label>
+
+                        Password
+
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required>
+
+                        <button
+                            type="button"
+                            class="toggle-password">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="login-options">
+
+                    <label class="remember-me">
+
+                        <input
+                            type="checkbox"
+                            id="remember">
+
+                        Remember Me
+
+                    </label>
+
+                    <a href="forgot-password.html">
+
+                        Forgot Password?
+
+                    </a>
+
+                </div>
+
+                              <button
+                    type="submit"
+                    class="btn-primary login-btn">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                    Login
+
+                </button>
+
+            </form>
+
+            <div class="login-divider">
+
+                <span>
+
+                    OR
+
+                </span>
+
+            </div>
+
+            <div class="register-section">
+
+                <p>
+
+                    Don't have an account?
+
+                </p>
+
+                <a href="register.html"
+                   class="register-link">
+
+                    Create an Account
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- Footer -->
+<!-- ===================================================== -->
+
+<footer>
+
+    <div class="container footer-container">
+
+        <div class="footer-left">
+
+            <img src="logo.png"
+                 alt="LHDN Logo">
+
+            <div>
+
+                <h3>
+
+                    LHDN E-Receipt
+
+                </h3>
+
+                <p>
+
+                    AI Powered Receipt Management
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-right">
+
+            <p>
+
+                © 2026 LHDN E-Receipt
+
+            </p>
+
+            <p>
+
+                Developed by Amirrul Mukminin
+
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
