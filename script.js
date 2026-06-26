@@ -177,12 +177,12 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("dashboardWelcome");
 
         if (userName) {
-            userName.textContent = currentUser.fullname;
+            userName.textContent = currentUser.fullName;
         }
 
         if (welcomeName) {
             welcomeName.textContent =
-                `Welcome Back, ${currentUser.fullname} 👋`;
+                `Welcome Back, ${currentUser.fullName} 👋`;
         }
 
     }
