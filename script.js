@@ -148,3 +148,66 @@ if (loginForm) {
     });
 
 }
+
+/* ==================================================
+   DASHBOARD AUTHENTICATION
+================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const page = window.location.pathname;
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    /* -----------------------------
+       Protect Dashboard
+    ------------------------------ */
+
+    if (page.includes("dashboard.html")) {
+
+        if (!currentUser) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        const userName =
+            document.getElementById("dashboardUsername");
+
+        const welcomeName =
+            document.getElementById("dashboardWelcome");
+
+        if (userName) {
+            userName.textContent = currentUser.fullname;
+        }
+
+        if (welcomeName) {
+            welcomeName.textContent =
+                `Welcome Back, ${currentUser.fullname} 👋`;
+        }
+
+    }
+
+    /* -----------------------------
+       Logout
+    ------------------------------ */
+
+    const logoutBtn =
+        document.getElementById("logoutBtn");
+
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener("click", () => {
+
+            if (confirm("Are you sure you want to logout?")) {
+
+                localStorage.removeItem("currentUser");
+
+                window.location.href = "login.html";
+
+            }
+
+        });
+
+    }
+
+});
