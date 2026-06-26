@@ -82,3 +82,69 @@ if (registerForm) {
     });
 
 }
+
+/* ==========================================================
+   LHDN E-Receipt
+   User Login
+========================================================== */
+
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+
+    loginForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        const username = document
+            .getElementById("username")
+            .value
+            .trim();
+
+        const password = document
+            .getElementById("password")
+            .value;
+
+        if (username === "" || password === "") {
+
+            alert("Please enter your username and password.");
+
+            return;
+
+        }
+
+        const users =
+            JSON.parse(localStorage.getItem("users")) || [];
+
+        const user = users.find(function (u) {
+
+            return (
+                u.username === username &&
+                u.password === password
+            );
+
+        });
+
+        if (!user) {
+
+            alert("Invalid username or password.");
+
+            return;
+
+        }
+
+        localStorage.setItem(
+
+            "currentUser",
+
+            JSON.stringify(user)
+
+        );
+
+        alert("Welcome back, " + user.fullName + "!");
+
+        window.location.href = "dashboard.html";
+
+    });
+
+}
