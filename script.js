@@ -143,7 +143,7 @@ if (loginForm) {
 
         alert("Welcome back, " + user.fullName + "!");
 
-        window.location.href = "dashboard.html";
+        window.location.replace("dashboard.html");
 
     });
 
@@ -165,48 +165,90 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (page.includes("dashboard.html")) {
 
-        if (!currentUser) {
-            window.location.href = "login.html";
-            return;
-        }
+    if (!currentUser) {
 
-        const userName =
-            document.getElementById("dashboardUsername");
+        window.location.replace("login.html");
 
-        const welcomeName =
-            document.getElementById("dashboardWelcome");
-
-        if (userName) {
-            userName.textContent = currentUser.fullName;
-        }
-
-        if (welcomeName) {
-            welcomeName.textContent =
-                `Welcome Back, ${currentUser.fullName} 👋`;
-        }
+        return;
 
     }
+
+    history.pushState(null, null, location.href);
+
+    window.onpopstate = function () {
+
+        history.go(1);
+
+    };
+
+    const userName =
+        document.getElementById("dashboardUsername");
+
+    const welcomeName =
+        document.getElementById("dashboardWelcome");
+
+    if (userName) {
+
+        userName.textContent = currentUser.fullName;
+
+    }
+
+    if (welcomeName) {
+
+        welcomeName.textContent =
+            `Welcome Back, ${currentUser.fullName} 👋`;
+
+    }
+
+}
 
     /* -----------------------------
        Logout
     ------------------------------ */
 
     const logoutBtn =
-        document.getElementById("logoutBtn");
+    document.getElementById("logoutBtn");
 
-    if (logoutBtn) {
+if (logoutBtn) {
 
-        logoutBtn.addEventListener("click", () => {
+    logoutBtn.addEventListener("click", () => {
 
-            if (confirm("Are you sure you want to logout?")) {
+        const confirmLogout = confirm(
+            "Are you sure you want to logout?"
+        );
 
-                localStorage.removeItem("currentUser");
+        if (!confirmLogout) {
 
-                window.location.href = "login.html";
+            return;
 
-            }
+        }
 
-        });
+        localStorage.removeItem("currentUser");
+
+        history.replaceState(null, null, "index.html");
+
+        window.location.replace("index.html");
+
+    });
+
+}
+
+});
+
+window.addEventListener("pageshow", function () {
+
+    const page = window.location.pathname;
+
+    if (page.includes("dashboard.html")) {
+
+        const currentUser =
+            JSON.parse(localStorage.getItem("currentUser"));
+
+        if (!currentUser) {
+
+            window.location.replace("login.html");
+
+        }
 
     }
 
