@@ -1444,3 +1444,281 @@ nav{
 }
 
 }
+
+/* ==========================================================
+   Login Layout
+========================================================== */
+
+.login-container{
+
+    display:grid;
+
+    grid-template-columns:560px 1fr;
+
+    gap:70px;
+
+    align-items:center;
+
+}
+
+.welcome-panel{
+
+    color:var(--primary);
+
+    animation:slideRight .9s ease;
+
+}
+
+.welcome-logo{
+
+    width:130px;
+
+    margin-bottom:30px;
+
+    animation:floatLogo 5s ease-in-out infinite;
+
+}
+
+.welcome-badge{
+
+    display:inline-block;
+
+    background:#EAF2FF;
+
+    color:var(--primary);
+
+    padding:10px 22px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    margin-bottom:22px;
+
+}
+
+.welcome-panel h2{
+
+    font-size:3rem;
+
+    line-height:1.2;
+
+    margin-bottom:25px;
+
+}
+
+.welcome-panel p{
+
+    font-size:1.1rem;
+
+    color:var(--text-light);
+
+    line-height:1.8;
+
+    max-width:520px;
+
+    margin-bottom:40px;
+
+}
+
+.welcome-features{
+
+    display:grid;
+
+    gap:22px;
+
+}
+
+.feature-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    background:rgba(255,255,255,.65);
+
+    backdrop-filter:blur(16px);
+
+    -webkit-backdrop-filter:blur(16px);
+
+    padding:18px 24px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.7);
+
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+    transition:.35s ease;
+
+}
+
+.feature-item:hover{
+
+    transform:translateX(10px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.10);
+
+}
+
+.feature-item i{
+
+    width:48px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-size:1.1rem;
+
+}
+
+.feature-item span{
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    color:var(--text);
+
+}
+
+/* ==========================================================
+   Login Animations
+========================================================== */
+
+@keyframes floatLogo{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-12px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+@keyframes slideRight{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(50px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+/* ==========================================================
+   Responsive Login Layout
+========================================================== */
+
+@media(max-width:1200px){
+
+.login-container{
+
+    grid-template-columns:1fr;
+
+    gap:60px;
+
+}
+
+.welcome-panel{
+
+    text-align:center;
+
+}
+
+.welcome-panel p{
+
+    margin-left:auto;
+
+    margin-right:auto;
+
+}
+
+.welcome-features{
+
+    max-width:650px;
+
+    margin:auto;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.welcome-panel h2{
+
+    font-size:2.4rem;
+
+}
+
+.welcome-logo{
+
+    width:100px;
+
+}
+
+.feature-item{
+
+    padding:16px 18px;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.welcome-panel{
+
+    display:none;
+
+}
+
+.login-container{
+
+    display:block;
+
+}
+
+.login-card{
+
+    max-width:100%;
+
+}
+
+}
