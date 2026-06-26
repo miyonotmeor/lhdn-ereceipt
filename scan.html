@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Receipt Scan | LHDN E-Receipt</title>
+
+    <meta name="description"
+          content="Smart Receipt Scan">
+
+    <link rel="icon"
+          type="image/png"
+          href="logo.png">
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<!-- ========================================= -->
+<!-- Navigation -->
+<!-- ========================================= -->
+
+<header>
+
+    <div class="container nav-container">
+
+        <div class="logo">
+
+            <img src="logo.png"
+                 alt="Logo">
+
+            <div class="logo-text">
+
+                <h2>LHDN E-Receipt</h2>
+
+                <span>AI Powered Receipt Management</span>
+
+            </div>
+
+        </div>
+
+        <div class="dashboard-user">
+
+            <div class="user-avatar">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <div>
+
+                <strong id="dashboardUsername">
+
+                    Loading...
+
+                </strong>
+
+                <p>
+
+                    Smart Receipt Scan
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ========================================= -->
+<!-- Scan -->
+<!-- ========================================= -->
+
+<section class="scan-page">
+
+    <div class="container">
+
+        <div class="scan-header">
+
+            <span class="welcome-badge">
+
+                AI Receipt Recognition
+
+            </span>
+
+            <h1>
+
+                Smart Receipt Scan
+
+            </h1>
+
+            <p>
+
+                Capture or upload an official LHDN receipt.
+                The system will automatically extract
+                the receipt information using AI OCR.
+
+            </p>
+
+        </div>
+
+        <!-- Tips -->
+
+        <div class="scan-tips">
+
+            <h2>
+
+                Best Results
+
+            </h2>
+
+            <div class="tips-grid">
+
+                <div class="tip-card">
+
+                    <i class="fa-solid fa-lightbulb"></i>
+
+                    <h3>
+
+                        Good Lighting
+
+                    </h3>
+
+                    <p>
+
+                        Ensure the receipt is well lit.
+
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+
+                    <i class="fa-solid fa-expand"></i>
+
+                    <h3>
+
+                        Full Receipt
+
+                    </h3>
+
+                    <p>
+
+                        Capture the entire receipt.
+
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    <h3>
+
+                        Official Receipt
+
+                    </h3>
+
+                    <p>
+
+                        Optimized for LHDN receipts only.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Upload Section -->
+
+        <div class="scan-upload">
+
+            <h2>
+
+                Select Receipt
+
+            </h2>
+
+            <p>
+
+                Choose one of the methods below.
+
+            </p>
+
+            <div class="upload-buttons">
+
+                <button
+                    id="cameraButton"
+                    class="btn-primary">
+
+                    <i class="fa-solid fa-camera"></i>
+
+                    Take Photo
+
+                </button>
+
+                <button
+                    id="galleryButton"
+                    class="btn-outline">
+
+                    <i class="fa-solid fa-image"></i>
+
+                    Upload Receipt
+
+                </button>
+
+            </div>
+
+            <input
+                type="file"
+                id="receiptImage"
+                accept="image/*"
+                capture="environment"
+                hidden>
+
+                  <!-- Preview -->
+
+        <div class="preview-card">
+
+            <h2>
+
+                Receipt Preview
+
+            </h2>
+
+            <div class="preview-area">
+
+                <img
+                    id="previewImage"
+                    src=""
+                    alt="Receipt Preview">
+
+                <div
+                    id="previewPlaceholder"
+                    class="preview-placeholder">
+
+                    <i class="fa-solid fa-image"></i>
+
+                    <h3>
+
+                        No Receipt Selected
+
+                    </h3>
+
+                    <p>
+
+                        Capture a photo or upload an official
+                        LHDN receipt to continue.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="preview-actions">
+
+                <button
+                    id="changeImageButton"
+                    class="btn-outline">
+
+                    <i class="fa-solid fa-repeat"></i>
+
+                    Choose Another
+
+                </button>
+
+                <button
+                    id="continueButton"
+                    class="btn-primary">
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                    Continue
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Information -->
+
+        <div class="scan-information">
+
+            <h2>
+
+                Before Continuing
+
+            </h2>
+
+            <ul>
+
+                <li>
+
+                    The receipt must be fully visible.
+
+                </li>
+
+                <li>
+
+                    Avoid blurry or tilted images.
+
+                </li>
+
+                <li>
+
+                    This version is optimized for the official
+                    LHDN receipt format.
+
+                </li>
+
+                <li>
+
+                    AI OCR will extract the receipt details
+                    automatically in the next step.
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- Footer -->
+<!-- ========================================= -->
+
+<footer>
+
+    <div class="container footer-container">
+
+        <div class="footer-left">
+
+            <img
+                src="logo.png"
+                alt="Logo">
+
+            <div>
+
+                <h3>
+
+                    LHDN E-Receipt
+
+                </h3>
+
+                <p>
+
+                    AI Powered Receipt Management
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-right">
+
+            <p>
+
+                © 2026 LHDN E-Receipt
+
+            </p>
+
+            <p>
+
+                Developed by Amirrul Mukminin
+
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
