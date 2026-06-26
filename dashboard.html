@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | LHDN E-Receipt</title>
+
+    <meta name="description"
+          content="LHDN E-Receipt Dashboard">
+
+    <link rel="icon"
+          type="image/png"
+          href="logo.png">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<!-- ========================================= -->
+<!-- Navigation -->
+<!-- ========================================= -->
+
+<header>
+
+    <div class="container nav-container">
+
+        <div class="logo">
+
+            <img src="logo.png"
+                 alt="Logo">
+
+            <div class="logo-text">
+
+                <h2>LHDN E-Receipt</h2>
+
+                <span>AI Powered Receipt Management</span>
+
+            </div>
+
+        </div>
+
+        <div class="dashboard-user">
+
+            <div class="user-avatar">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <div>
+
+                <strong id="welcomeName">
+
+                    Loading...
+
+                </strong>
+
+                <p>
+
+                    Welcome Back
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ========================================= -->
+<!-- Dashboard -->
+<!-- ========================================= -->
+
+<section class="dashboard-page">
+
+    <div class="container">
+
+        <!-- Hero -->
+
+        <div class="dashboard-hero">
+
+            <div>
+
+                <span class="welcome-badge">
+
+                    AI Powered Dashboard
+
+                </span>
+
+                <h1>
+
+                    Welcome Back,
+
+                    <span id="dashboardName">
+
+                        User
+
+                    </span>
+
+                    👋
+
+                </h1>
+
+                <p>
+
+                    Manage your official LHDN receipts securely,
+                    upload new receipts and generate clean digital
+                    copies anytime.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Quick Actions -->
+
+        <div class="dashboard-actions">
+
+            <a href="#"
+               class="action-card">
+
+                <i class="fa-solid fa-camera"></i>
+
+                <h3>
+
+                    Scan Receipt
+
+                </h3>
+
+                <p>
+
+                    Capture using your device camera.
+
+                </p>
+
+            </a>
+
+            <a href="#"
+               class="action-card">
+
+                <i class="fa-solid fa-image"></i>
+
+                <h3>
+
+                    Upload Receipt
+
+                </h3>
+
+                <p>
+
+                    Upload from your gallery.
+
+                </p>
+
+            </a>
+
+            <a href="#"
+               class="action-card">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                <h3>
+
+                    Receipt History
+
+                </h3>
+
+                <p>
+
+                    View previous receipts.
+
+                </p>
+
+            </a>
+
+            <a href="#"
+               class="action-card">
+
+                <i class="fa-solid fa-file-pdf"></i>
+
+                <h3>
+
+                    Export PDF
+
+                </h3>
+
+                <p>
+
+                    Download official receipts.
+
+                </p>
+
+            </a>
+
+        </div>
+
+        <!-- Statistics -->
+
+        <div class="dashboard-stats">
+
+            <div class="stat-card">
+
+                <h2>
+
+                    0
+
+                </h2>
+
+                <p>
+
+                    Receipts
+
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+
+                    RM0.00
+
+                </h2>
+
+                <p>
+
+                    Total Amount
+
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+
+                    AI Ready
+
+                </h2>
+
+                <p>
+
+                    OCR Status
+
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+
+                    Secure
+
+                </h2>
+
+                <p>
+
+                    Local Storage
+
+                </p>
+
+            </div>
+
+        </div>
+
+              <!-- ========================================= -->
+        <!-- Dashboard Bottom -->
+        <!-- ========================================= -->
+
+        <div class="dashboard-grid">
+
+            <!-- Recent Activity -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <h2>
+
+                        Recent Activity
+
+                    </h2>
+
+                </div>
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-receipt"></i>
+
+                    <h3>
+
+                        No Receipts Yet
+
+                    </h3>
+
+                    <p>
+
+                        Your scanned and uploaded receipts will appear here.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- System Status -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <h2>
+
+                        System Status
+
+                    </h2>
+
+                </div>
+
+                <div class="status-list">
+
+                    <div class="status-item">
+
+                        <span>
+
+                            AI OCR
+
+                        </span>
+
+                        <span class="status online">
+
+                            Ready
+
+                        </span>
+
+                    </div>
+
+                    <div class="status-item">
+
+                        <span>
+
+                            Local Storage
+
+                        </span>
+
+                        <span class="status online">
+
+                            Connected
+
+                        </span>
+
+                    </div>
+
+                    <div class="status-item">
+
+                        <span>
+
+                            Receipt Generator
+
+                        </span>
+
+                        <span class="status online">
+
+                            Ready
+
+                        </span>
+
+                    </div>
+
+                    <div class="status-item">
+
+                        <span>
+
+                            PDF Export
+
+                        </span>
+
+                        <span class="status online">
+
+                            Available
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- Quick Menu -->
+        <!-- ========================================= -->
+
+        <div class="dashboard-shortcuts">
+
+            <a href="#" class="shortcut-card">
+
+                <i class="fa-solid fa-star"></i>
+
+                <span>Favorites</span>
+
+            </a>
+
+            <a href="#" class="shortcut-card">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+            <a href="#" class="shortcut-card">
+
+                <i class="fa-solid fa-circle-question"></i>
+
+                <span>Help</span>
+
+            </a>
+
+            <a href="index.html"
+               id="logoutBtn"
+               class="shortcut-card logout-card">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- Footer -->
+<!-- ========================================= -->
+
+<footer>
+
+    <div class="container footer-container">
+
+        <div class="footer-left">
+
+            <img src="logo.png"
+                 alt="Logo">
+
+            <div>
+
+                <h3>
+
+                    LHDN E-Receipt
+
+                </h3>
+
+                <p>
+
+                    AI Powered Receipt Management
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-right">
+
+            <p>
+
+                © 2026 LHDN E-Receipt
+
+            </p>
+
+            <p>
+
+                Developed by Amirrul Mukminin
+
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
