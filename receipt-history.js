@@ -168,7 +168,7 @@ document.querySelectorAll(".view-btn").forEach(button => {
         );
 
         window.location.href =
-            "receipt-details.html";
+          `receipt-details.html?index=${index}`;
 
     });
 
