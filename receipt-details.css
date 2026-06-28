@@ -1,1 +1,215 @@
+/* ==========================================================
+   LHDN E-Receipt
+   Receipt Details
+   Part 1
+========================================================== */
+
+.receipt-details-page{
+
+    width:90%;
+    max-width:1200px;
+
+    margin:50px auto;
+
+}
+
+.page-title{
+
+    margin-bottom:35px;
+
+}
+
+.page-title h1{
+
+    font-size:42px;
+    color:#1f2937;
+
+    margin:15px 0 10px;
+
+}
+
+.page-title p{
+
+    color:#6b7280;
+
+    font-size:18px;
+
+}
+
+.badge{
+
+    display:inline-block;
+
+    background:#e8f0ff;
+
+    color:#1d4ed8;
+
+    padding:10px 22px;
+
+    border-radius:999px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================================
+   Receipt Information Card
+========================================================== */
+
+.receipt-card{
+
+    background:#ffffff;
+
+    border-radius:24px;
+
+    padding:40px;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.08);
+
+    margin-bottom:40px;
+
+}
+
+.receipt-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:24px;
+
+}
+
+.receipt-item{
+
+    background:#f8fafc;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:18px;
+
+    padding:18px 22px;
+
+}
+
+.receipt-item label{
+
+    display:block;
+
+    font-size:14px;
+
+    color:#6b7280;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+}
+
+.receipt-item p{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#1f2937;
+
+    word-break:break-word;
+
+}
+
+@media (max-width:768px){
+
+    .receipt-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+/* ==========================================================
+   Receipt Action Buttons
+========================================================== */
+
+.receipt-actions{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin:50px 0;
+
+    flex-wrap:wrap;
+
+}
+
+.primary-button,
+.secondary-button{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:16px 32px;
+
+    border-radius:16px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+
+    text-decoration:none;
+
+}
+
+.primary-button{
+
+    background:#17479e;
+
+    color:#fff;
+
+    border:none;
+
+}
+
+.primary-button:hover{
+
+    background:#123a82;
+
+    transform:translateY(-2px);
+
+}
+
+.secondary-button{
+
+    background:#fff;
+
+    color:#17479e;
+
+    border:2px solid #17479e;
+
+}
+
+.secondary-button:hover{
+
+    background:#17479e;
+
+    color:#fff;
+
+    transform:translateY(-2px);
+
+}
 
