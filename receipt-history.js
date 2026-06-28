@@ -173,6 +173,44 @@ document.querySelectorAll(".view-btn").forEach(button => {
     });
 
 });
+
+/* ==========================================================
+   Delete Receipt
+========================================================== */
+
+document.querySelectorAll(".delete-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const confirmed =
+            confirm("Delete this receipt?");
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+        const index =
+            Number(button.dataset.index);
+
+        let receipts =
+            JSON.parse(localStorage.getItem("receipts")) || [];
+
+        receipts.splice(index, 1);
+
+        localStorage.setItem(
+            "receipts",
+            JSON.stringify(receipts)
+        );
+
+        alert("Receipt deleted successfully!");
+
+        location.reload();
+
+    });
+
+});
    
 });
 
