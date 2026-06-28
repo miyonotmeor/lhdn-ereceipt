@@ -140,4 +140,44 @@ document.getElementById("receiptReference").textContent =
 document.getElementById("receiptStatus").textContent =
     paymentStatus;
 
+/* --------------------------------------------
+   Save Receipt
+--------------------------------------------- */
+
+const saveReceiptButton =
+    document.getElementById("saveReceiptButton");
+
+saveReceiptButton.addEventListener("click", () => {
+
+    const receipt = {
+
+        receiptNumber,
+        receiptDate,
+        receiptName,
+        receiptIC,
+        assessmentYear,
+        paymentType,
+        taxAmount,
+        sstAmount,
+        totalPaid,
+        referenceNumber,
+        paymentMethod,
+        paymentStatus
+
+    };
+
+    let receipts =
+        JSON.parse(localStorage.getItem("receipts")) || [];
+
+    receipts.push(receipt);
+
+    localStorage.setItem(
+        "receipts",
+        JSON.stringify(receipts)
+    );
+
+    alert("Receipt saved successfully!");
+
+});
+
 });
