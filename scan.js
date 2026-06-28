@@ -99,36 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-});
-
-/* ==========================================================
-   LHDN E-Receipt
-   Smart Receipt Scan
-   Part 2
-========================================================== */
-
-/* --------------------------------------------
-   Continue Button
---------------------------------------------- */
-
-continueButton.addEventListener("click", () => {
-
-    const selectedReceipt =
-        localStorage.getItem("selectedReceipt");
-
-    if (!selectedReceipt) {
-
-        alert("Please select a receipt first.");
-
-        return;
-
-    }
-
-    window.location.href = "extract.html";
-
-});
-
-/* --------------------------------------------
+   /* --------------------------------------------
    Restore Previous Receipt Preview
 --------------------------------------------- */
 
@@ -147,7 +118,7 @@ if (savedReceipt) {
 
 }
 
-/* ==========================================================
+   /* ==========================================================
    OCR Text Extraction
 ========================================================== */
 
@@ -229,3 +200,11 @@ continueButton.addEventListener("click", async () => {
     continueButton.disabled = false;
 
 });
+
+});
+
+/* ==========================================================
+   LHDN E-Receipt
+   Smart Receipt Scan
+   Part 2
+========================================================== */
