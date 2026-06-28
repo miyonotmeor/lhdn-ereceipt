@@ -118,30 +118,32 @@ receipts
 
                 <div class="history-buttons">
 
-                    <button class="secondary-button">
+                    <button class="secondary-button view-btn"
+        data-index="${receipts.length - 1 - index}">
 
-                        <i class="fa-solid fa-eye"></i>
+    <i class="fa-solid fa-eye"></i>
 
-                        View
+    View
 
-                    </button>
+</button>
 
-                    <button class="secondary-button">
+<button class="secondary-button pdf-btn"
+        data-index="${receipts.length - 1 - index}">
 
-                        <i class="fa-solid fa-file-pdf"></i>
+    <i class="fa-solid fa-file-pdf"></i>
 
-                        PDF
+    PDF
 
-                    </button>
+</button>
 
-                    <button class="primary-button">
+<button class="primary-button delete-btn"
+        data-index="${receipts.length - 1 - index}">
 
-                        <i class="fa-solid fa-trash"></i>
+    <i class="fa-solid fa-trash"></i>
 
-                        Delete
+    Delete
 
-                    </button>
-
+</button>
                 </div>
 
             </div>
@@ -150,5 +152,27 @@ receipts
 
     });
 
+/* ==========================================================
+   View Receipt
+========================================================== */
+
+document.querySelectorAll(".view-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const index = button.dataset.index;
+
+        localStorage.setItem(
+            "selectedReceiptIndex",
+            index
+        );
+
+        window.location.href =
+            "receipt-details.html";
+
+    });
+
+});
+   
 });
 
