@@ -185,6 +185,12 @@ continueButton.addEventListener("click", async () => {
 
         ocrOutput.textContent = extractedText;
 
+       setTimeout(() => {
+
+    window.location.href = "receipt-details.html";
+
+}, 1000);
+
     }
 
     catch (error) {
