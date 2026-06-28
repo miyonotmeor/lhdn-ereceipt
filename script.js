@@ -252,4 +252,41 @@ window.addEventListener("pageshow", function () {
 
     }
 
+/* --------------------------------------------
+   Dashboard Statistics
+--------------------------------------------- */
+
+const receiptCount =
+    document.getElementById("receiptCount");
+
+const totalAmount =
+    document.getElementById("totalAmount");
+
+if (receiptCount && totalAmount) {
+
+    const receipts =
+        JSON.parse(localStorage.getItem("receipts")) || [];
+
+    receiptCount.textContent =
+        receipts.length;
+
+    let total = 0;
+
+    receipts.forEach(receipt => {
+
+        const amount =
+            parseFloat(
+                String(receipt.totalPaid)
+                    .replace(/,/g, "")
+            ) || 0;
+
+        total += amount;
+
+    });
+
+    totalAmount.textContent =
+        "RM" + total.toFixed(2);
+
+}
+
 });
