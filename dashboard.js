@@ -64,13 +64,13 @@ if (recentActivity) {
 
                     <h3>${latest.receiptNumber || "-"}</h3>
 
-                    <p><strong>Name:</strong> ${latest.name || "-"}</p>
+                    <p><strong>Name:</strong> ${latest.receiptName || "-"}</p>
 
-                    <p><strong>Date:</strong> ${latest.date || "-"}</p>
+<p><strong>Date:</strong> ${latest.receiptDate || "-"}</p>
 
-                    <p><strong>Total:</strong> RM${latest.totalPaid || "0.00"}</p>
+<p><strong>Total:</strong> RM${latest.totalPaid || "0.00"}</p>
 
-                    <p><strong>Status:</strong> ${latest.status || "-"}</p>
+<p><strong>Status:</strong> ${latest.paymentStatus || "-"}</p>
 
                 </div>
 
