@@ -146,3 +146,86 @@ if (savedReceipt) {
     continueButton.disabled = false;
 
 }
+
+/* ==========================================================
+   OCR Text Extraction
+========================================================== */
+
+continueButton.addEventListener("click", async () => {
+
+    const selectedReceipt =
+        localStorage.getItem("selectedReceipt");
+
+    if (!selectedReceipt) {
+
+        alert("Please select a receipt first.");
+
+        return;
+
+    }
+
+    const ocrOutput =
+        document.getElementById("ocrOutput");
+
+    ocrOutput.innerHTML =
+        "🔄 Analyzing receipt...<br><br>Please wait...";
+
+    continueButton.disabled = true;
+
+    try {
+
+        const result = await Tesseract.recognize(
+
+            selectedReceipt,
+
+            "eng",
+
+            {
+
+                logger: function (message) {
+
+                    if (message.status === "recognizing text") {
+
+                        ocrOutput.innerHTML =
+
+                            "🤖 AI is reading the receipt...<br><br>" +
+
+                            Math.round(message.progress * 100) +
+
+                            "% completed";
+
+                    }
+
+                }
+
+            }
+
+        );
+
+        const extractedText = result.data.text;
+
+        localStorage.setItem(
+
+            "ocrText",
+
+            extractedText
+
+        );
+
+        ocrOutput.textContent = extractedText;
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        ocrOutput.innerHTML =
+
+            "❌ OCR failed.<br>Please try another image.";
+
+    }
+
+    continueButton.disabled = false;
+
+});
