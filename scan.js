@@ -7,6 +7,30 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+   /* --------------------------------------------
+   Current User
+--------------------------------------------- */
+
+const currentUser =
+    JSON.parse(localStorage.getItem("currentUser"));
+
+if (!currentUser) {
+
+    window.location.href = "login.html";
+    return;
+
+}
+
+const dashboardUsername =
+    document.getElementById("dashboardUsername");
+
+if (dashboardUsername) {
+
+    dashboardUsername.textContent =
+        currentUser.fullName;
+
+}
+
     const cameraButton = document.getElementById("cameraButton");
     const galleryButton = document.getElementById("galleryButton");
     const receiptImage = document.getElementById("receiptImage");
