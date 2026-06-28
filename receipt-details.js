@@ -30,6 +30,64 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+   /* --------------------------------------------
+   Open From Receipt History
+--------------------------------------------- */
+
+const urlParams = new URLSearchParams(window.location.search);
+
+const receiptIndex = urlParams.get("index");
+
+if (receiptIndex !== null) {
+
+    const receipts =
+        JSON.parse(localStorage.getItem("receipts")) || [];
+
+    const receipt = receipts[receiptIndex];
+
+    if (receipt) {
+
+        document.getElementById("receiptNumber").textContent =
+            receipt.receiptNumber;
+
+        document.getElementById("receiptDate").textContent =
+            receipt.receiptDate;
+
+        document.getElementById("receiptName").textContent =
+            receipt.receiptName;
+
+        document.getElementById("receiptIC").textContent =
+            receipt.receiptIC;
+
+        document.getElementById("receiptYear").textContent =
+            receipt.assessmentYear;
+
+        document.getElementById("receiptPayment").textContent =
+            receipt.paymentType;
+
+        document.getElementById("receiptTax").textContent =
+            receipt.taxAmount;
+
+        document.getElementById("receiptSST").textContent =
+            receipt.sstAmount;
+
+        document.getElementById("receiptTotal").textContent =
+            receipt.totalPaid;
+
+        document.getElementById("receiptReference").textContent =
+            receipt.referenceNumber;
+
+        document.getElementById("receiptStatus").textContent =
+            receipt.paymentStatus;
+
+        document.getElementById("saveReceiptButton").style.display = "none";
+
+        return;
+
+    }
+
+}
+   
     /* --------------------------------------------
        OCR Text
     --------------------------------------------- */
