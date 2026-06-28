@@ -14,7 +14,7 @@
           href="style.css">
 
     <link rel="stylesheet"
-          href="receipt-details.css">
+      href="receipt-history.css">
 
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
@@ -90,7 +90,7 @@
 
         <span class="badge">
 
-            AI OCR Result
+            Receipt History
 
         </span>
 
@@ -120,8 +120,9 @@
 
 <section class="receipt-actions">
 
-    <button id="backButton"
-            class="secondary-button">
+    <button
+        onclick="history.back()"
+        class="secondary-button">
 
         <i class="fa-solid fa-arrow-left"></i>
 
@@ -129,17 +130,9 @@
 
     </button>
 
-    <button id="saveReceiptButton"
-            class="primary-button">
-
-        <i class="fa-solid fa-floppy-disk"></i>
-
-        Save Receipt
-
-    </button>
-
-    <button id="dashboardButton"
-            class="secondary-button">
+    <button
+        onclick="location.href='dashboard.html'"
+        class="primary-button">
 
         <i class="fa-solid fa-house"></i>
 
@@ -186,7 +179,6 @@
 
 </footer>
 
-<script src="receipt.js"></script>
 <script src="receipt-history.js"></script>
 
 </body>
