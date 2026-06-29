@@ -767,7 +767,7 @@ nav a:hover::after{
 
 .contact{
 
-    scroll-margin-top:20px;
+    scroll-margin-top:-10px;
 
 }
 
