@@ -526,9 +526,17 @@ nav a:hover::after{
 
 .feature-card:hover{
 
-    transform:translateY(-10px);
+    transform:translateY(-12px) scale(1.02);
 
     border-color:rgba(0,59,142,.15);
+
+}
+
+.developer-card:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.12);
 
 }
 
@@ -753,14 +761,24 @@ nav a:hover::after{
 }
 
 /* ==========================================================
-   Contact
+   Development Team
 ========================================================== */
 
-.contact-card{
+.team-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+    gap:35px;
+
+}
+
+.developer-card{
 
     background:var(--white);
 
-    padding:50px;
+    padding:40px 30px;
 
     border-radius:var(--radius);
 
@@ -768,23 +786,53 @@ nav a:hover::after{
 
     text-align:center;
 
+    transition:var(--transition);
+
 }
 
-.contact-card h3{
+.developer-photo{
+
+    width:140px;
+
+    height:140px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:5px solid var(--primary);
+
+    margin:0 auto 25px;
+
+}
+
+.developer-card h3{
 
     color:var(--primary);
 
-    margin-bottom:20px;
+    font-size:1rem;
 
-    font-size:2rem;
+    margin-bottom:8px;
 
 }
 
-.contact-card p{
+.developer-card h4{
 
-    line-height:1.9;
+    color:var(--text);
+
+    font-size:1.4rem;
+
+    margin-bottom:18px;
+
+}
+
+.developer-card p{
 
     color:var(--text-light);
+
+    line-height:1.8;
+
+    margin-bottom:15px;
 
 }
 
