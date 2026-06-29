@@ -60,6 +60,7 @@ Author  : Amirrul Mukminin
 html{
 
     scroll-behavior:smooth;
+    scroll-padding-top:100px;
 
 }
 
@@ -1838,7 +1839,7 @@ DASHBOARD
 }
 
 .action-card:hover{
-    transform:translateY(-10px);
+    transform:translateY(-12px) scale(1.02);
 }
 
 .action-card i{
