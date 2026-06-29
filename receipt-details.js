@@ -239,3 +239,19 @@ saveReceiptButton.addEventListener("click", () => {
 });
 
 });
+
+/* ==========================================================
+   Auto Print
+========================================================== */
+
+const params = new URLSearchParams(window.location.search);
+
+if (params.get("print") === "true") {
+
+    setTimeout(() => {
+
+        window.print();
+
+    }, 500);
+
+}
