@@ -589,6 +589,7 @@ nav a:hover::after{
 .about{
 
     background:#ffffff;
+    scroll-margin-top:100px;
 
 }
 
@@ -763,6 +764,12 @@ nav a:hover::after{
 /* ==========================================================
    Development Team
 ========================================================== */
+
+.contact{
+
+    scroll-margin-top:100px;
+
+}
 
 .team-grid{
 
