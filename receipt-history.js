@@ -211,6 +211,25 @@ document.querySelectorAll(".delete-btn").forEach(button => {
     });
 
 });
+
+/* ==========================================================
+   Print PDF
+========================================================== */
+
+document.querySelectorAll(".pdf-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const index = button.dataset.index;
+
+        window.open(
+            `receipt-details.html?index=${index}&print=true`,
+            "_blank"
+        );
+
+    });
+
+});
    
 });
 
