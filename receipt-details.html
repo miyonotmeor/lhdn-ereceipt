@@ -57,6 +57,69 @@ border:none;
 
 }
 
+
+@media print{
+
+header,
+footer,
+.receipt-actions,
+.page-title{
+
+display:none !important;
+
+}
+
+body{
+
+background:white;
+margin:0;
+padding:0;
+
+}
+
+main{
+
+padding:10px !important;
+
+}
+
+.receipt-card{
+
+box-shadow:none !important;
+border:none !important;
+margin:0 !important;
+padding:10px !important;
+
+}
+
+.receipt-grid{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+
+}
+
+.receipt-item{
+
+padding:10px;
+
+}
+
+label{
+
+font-size:12px;
+
+}
+
+.receipt-item p{
+
+font-size:18px;
+
+}
+
+}
+        
 </style>
     
 </head>
