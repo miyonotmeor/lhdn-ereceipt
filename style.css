@@ -1784,7 +1784,7 @@ DASHBOARD
     margin-bottom:40px;
 }
 
-.stat-card{
+.dashboard-stat-card{
     background:white;
     border-radius:22px;
     padding:28px;
@@ -1795,7 +1795,7 @@ DASHBOARD
     gap:20px;
 }
 
-.stat-card:hover{
+.dashboard-stat-card:hover{
     transform:translateY(-8px);
 }
 
